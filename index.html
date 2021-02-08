@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.0.4 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+
+<title>A Penguin In Redmond</title>
+<meta name="description" content="Software development
+">
+<link rel="canonical" href="/">
+
+  
+
+  
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="A Penguin In Redmond">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="A Penguin In Redmond">
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta name="generator" content="Hydejack v9.0.4" />
+
+
+<link rel="alternate" href="/2009/12/in-visual-c-2008-express-save-doesnt.html" hreflang="en">
+
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="A Penguin In Redmond" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+<script>!function(e,t){"use strict";function n(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}e.loadJS=function(e,o){var r=t.createElement("script");r.src=e,o&&n(r,"load",o,{once:!0});var a=t.scripts[0];return a.parentNode.insertBefore(r,a),r},e._loaded=!1,e.loadJSDeferred=function(o,r){function a(){e._loaded=!0,r&&n(c,"load",r,{once:!0});var o=t.scripts[0];o.parentNode.insertBefore(c,o)}var c=t.createElement("script");return c.src=o,e._loaded?a():n(e,"load",a,{once:!0}),c},e.setRel=e.setRelStylesheet=function(e){function o(){this.rel="stylesheet"}n(t.getElementById(e),"load",o,{once:!0})}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+}(window);
+</script>
+
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.0.4.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-darkened: #409ba3;--theme-color: rgb(25,55,71)}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="">
+  
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-blog"
+  role="main"
+>
+  
+
+
+  
+
+  
+
+
+
+
+
+<article id="post-2021-02-08-2012-01-19-syntax-highlighting-for-source-code-on" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2021/02/08/2012-01-19-syntax-highlighting-for-source-code-on.html" class="flip-title">
+        
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2021-02-08T13:22:50+01:00">08 Feb 2021</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2021/02/08/2012-01-19-syntax-highlighting-for-source-code-on.html"></a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-09-updating-old-app-made-with-visual" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/09/updating-old-app-made-with-visual.html" class="flip-title">
+        Updating an old app made with Visual Studio Tools for Apache Cordova
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-09-01T10:07:00+02:00">01 Sep 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Javascript</span>, <span>Cordova</span>, <span>Visual studio</span>, <span>Development tools</span>, <span>Html</span>, <span>Visual studio code</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    Recently I had to generate new iOS and Android versions of an app that had been created in Visual Studio 2015 using the Visual Studio Tools for Apache Cordova. This wasn't... easy. In this post, I will summarize some of the challenges I encountered and the solutions I found.  
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/09/updating-old-app-made-with-visual.html">Updating an old app made with Visual Studio Tools for Apache Cordova</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-03-profiling-php-with-xdebug-and" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/03/profiling-php-with-xdebug-and.html" class="flip-title">
+        Profiling PHP with XDebug and KCacheGrind
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-03-11T13:26:00+01:00">11 Mar 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Programming</span>, <span>Development tools</span>, <span>Php</span>
+
+    </div>
+
+    
+    
+      <a href="/2020/03/profiling-php-with-xdebug-and.html" class="no-hover no-print-link flip-project" tabindex="-1">
+        <div class="lead aspect-ratio sixteen-nine flip-project-img">
+          
+
+
+<img
+  
+    src="/images/kcachegrind.png"
+    
+    
+  
+  alt="Profiling PHP with XDebug and KCacheGrind"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+        </div>
+      </a>
+      
+    
+
+    
+
+
+
+  
+
+
+  </header>
+
+  
+    Does it take too long for your PHP page to load in the browser? Have you been staring at the code for ages and tried many fixes that didn't help much? Still no idea where the performance bottleneck is? Could it be somewhere in that bloated framework that you use? Or in some new class that your co-worker made last week? Or, heaven forbid, somewhere in your own code? To find out, a profiler will be of tremendous help. In this post, I will show how to use <a href="https://xdebug.org/docs/profiler">XDebug's profiler</a> and  <a href="https://kcachegrind.github.io/html/Home.html">KCacheGrind</a> to help make your code faster.
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/03/profiling-php-with-xdebug-and.html">Profiling PHP with XDebug and KCacheGrind</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-03-getting-dates-week-number-in-javascript" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/03/getting-dates-week-number-in-javascript.html" class="flip-title">
+        Getting a date's week number in JavaScript using (tail) recursion
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-03-05T15:03:00+01:00">05 Mar 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Javascript</span>, <span>Programming</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    Several years ago I wrote a <a href="/2014/01/getting-dates-week-number-in-javascript.html">post</a> about how to calculate the <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> week number of a given date without using an external library like <a href="https://momentjs.com/">Moment.js</a> and without using ugly implementation details such as seconds since 1970. It worked, but it wasn't the most elegant code ever. It used a <code>while</code> loop. Maybe it's just me, but I don't get along well with  <code>while</code> loops. I always get the while condition wrong at first, or I forget to increment or decrement something, and I end up with a loop that lasts forever or crashes my program. <br>An alternative for a <code>while</code> loop is recursion. In this post, I'll examine what happens if I change the iterative function of that old post to a recursive one.<br><br>
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/03/getting-dates-week-number-in-javascript.html">Getting a date's week number in JavaScript using (tail) recursion</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-02-7-ways-of-reducing-carbon-footprint-as" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/02/7-ways-of-reducing-carbon-footprint-as.html" class="flip-title">
+        8 ways of reducing carbon footprint as a software developer
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-02-27T12:21:00+01:00">27 Feb 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Climate change</span>, <span>Programming</span>
+
+    </div>
+
+    
+    
+      <a href="/2020/02/7-ways-of-reducing-carbon-footprint-as.html" class="no-hover no-print-link flip-project" tabindex="-1">
+        <div class="lead aspect-ratio sixteen-nine flip-project-img">
+          
+
+
+<img
+  
+    src="/images/blog3.jpg"
+    
+    
+  
+  alt="8 ways of reducing carbon footprint as a software developer"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+        </div>
+      </a>
+      
+    
+
+    
+
+
+
+  
+
+
+  </header>
+
+  
+    As we all know, our climate is changing for the worse. This is largely due to humanity's excessive carbon emissions, and we're not doing enough to reduce them. What can we, humble software developers, do to help? Here are some suggestions.
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/02/7-ways-of-reducing-carbon-footprint-as.html">8 ways of reducing carbon footprint as a software developer</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-02-syntax-highlighting-for-source-code-in" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/02/syntax-highlighting-for-source-code-in.html" class="flip-title">
+        Syntax highlighting for source code in Blogger Dynamic Views theme with Google code prettifier
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-02-19T10:46:00+01:00">19 Feb 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Javascript</span>, <span>Programming</span>, <span>Blogger</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    <p>I recently changed this blog's theme to a Dynamic Views theme. Its looks and behaviour are much more modern now. However, syntax highlightling for my source code snippets didn't work anymore. Apparently my <a href="/2014/01/syntax-highlighting-for-source-code-on.html">previous solution</a> with <a href="http://highlightjs.org/">highlight.js</a> doesn't work well with Dynamic Views. (For the "classic" themes it still works, though.)   
+<p>I tried modifying the theme's HTML and inserted the required tags in the header section, but I just couldn't get it to work. Maybe it has to do with the fact that posts are now loaded after the main page has loaded. I tried inserting the tags at the start of a post, but that didn't seem to work either.  Searching for an alternative, I stumbled upon Google's <a href="https://github.com/google/code-prettify">code prettifier</a>. It looked super easy to set up, so I gave it a try and it works well. Here's how to make it work:
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/02/syntax-highlighting-for-source-code-in.html">Syntax highlighting for source code in Blogger Dynamic Views theme with Google code prettifier</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-02-natural-sort-in-dojos-enhancedgrid" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/02/natural-sort-in-dojos-enhancedgrid.html" class="flip-title">
+        Natural Sort in dojo's EnhancedGrid
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-02-13T12:20:00+01:00">13 Feb 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Javascript</span>, <span>Programming</span>, <span>Dojox.grid.enhancedgrid</span>, <span>Dojo</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    "Hi, I would like to report a bug in the web app you built for us." <br />"Sure, what seems to be the problem?" <br />"The order in the tables is all wrong." <br />"Really? You can change the order of the items in the table by clicking on the column header that you wish to sort on." <br />"I know, and I did. But it sorts them wrong." <br />"OK, could you give me an example of what is ordered wrong?" <br />"Sure. I have three rooms, called Room 3, Room 50 and Room 225. If I click the room column's header, it should order them in that order: Room 3, Room 50 and then Room 225. Instead, I get Room 225, Room 3, Room 50." <br />"Oh, I see. Well, technically, that is the correct order. 2 before 3 before 5." <br />"But it's 225, not 2. And 50, not 5." <br />"Yes, but the sorting happens character by character. It checks the ASCII code of -" <br />"Axi what? Look, I'm not interested in the technicalities, could you just get it to work properly?" <br /> <h2>Natural Sort</h2><p>This kind of dialogue happens in a lot of software projects at some point. Confusion arises because the two participants are talking about two different ways of sorting. 
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/02/natural-sort-in-dojos-enhancedgrid.html">Natural Sort in dojo's EnhancedGrid</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-02-revisiting-my-first-programming" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/02/revisiting-my-first-programming.html" class="flip-title">
+        Revisiting my first programming language: Commodore 64 BASIC
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-02-07T14:47:00+01:00">07 Feb 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Programming</span>, <span>Basic</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    <p>In the mid-eighties, when I was about 10 years old, my parents bought our first home computer. I had just read some magazine that contained a program listing for the Commodore 64, and somehow I was very curious about it, so I'd urged them to buy a Commodore 64. Somehow they listened to me and they bought the machine. Soon, after playing some Pac-Man and Burning Rubber on it, I started entering the program code from the magazine. I had no idea what sort of code it was or what it meant, but I managed to enter all lines (the last 100 of which contained nothing but DATA lines with lots of numbers in them) correctly. I figured out how to save the program to tape and how to run it. I don't remember what the program actually did, but I was fascinated by it and decided to learn how to write my own programs on that machine.</p>
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/02/revisiting-my-first-programming.html">Revisiting my first programming language: Commodore 64 BASIC</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2020-01-managing-large-amounts-of-files-in-linux" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2020/01/managing-large-amounts-of-files-in-linux.html" class="flip-title">
+        Managing large amounts of files in Linux
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-01-31T15:57:00+01:00">31 Jan 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Bash</span>, <span>Linux</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script><p>Suppose you have a directory with millions of files in it. Performing commands on so many files in Linux is often challenging because of limits on the number of arguments that can be provided to commands.</p>
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2020/01/managing-large-amounts-of-files-in-linux.html">Managing large amounts of files in Linux</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+  
+
+
+
+
+
+<article id="post-2017-02-fixing-firefox-issues-with-column" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2017/02/fixing-firefox-issues-with-column.html" class="flip-title">
+        Fixing Firefox issues with column headers for dojox.grid.EnhancedGrid
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2017-02-09T16:07:00+01:00">09 Feb 2017</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Javascript</span>, <span>Programming</span>, <span>Dojox.grid.datagrid</span>, <span>Dojo</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    <p>In Firefox, clicking a <a href="http://dojotoolkit.org/reference-guide/1.10/dojox/grid/EnhancedGrid.html">dojox.grid.EnhancedGrid</a>’s column header to change sorting only works for the first column. Clicking another column’s header only shows a splitter. The same goes for right-clicking a column header to bring up a popup menu: it only works in the first column. In other browsers this works fine.</p> 
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2017/02/fixing-firefox-issues-with-column.html">Fixing Firefox issues with column headers for dojox.grid.EnhancedGrid</a>
+      </p>
+    </footer>
+  
+</article>
+
+
+
+
+  <h2 class="sr-only">Pagination</h2>
+<nav class="pagination heading clearfix" role="navigation">
+  <ul>
+    <li class="pagination-item older" >
+      
+      
+      
+  <a
+    class=" "
+    href="/2/"
+    rel="next"
+    
+  >Older</a>
+
+
+    </li>
+    <li class="pagination-item newer" >
+      
+      
+      
+  <span class=" ">Newer</span>
+
+
+    </li>
+  </ul>
+</nav>
+
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2020. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.0.4</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/icons/icon.png" class="avatar" alt="A Penguin In Redmond" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">A Penguin In Redmond</h2></a>
+    
+    
+      <p class="">
+        Software development
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item"
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item"
+          
+        >
+          About
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="https://kontactr.com/form-page/f8d372d656bd715"
+          class="sidebar-nav-item"
+          
+        >
+          Contact
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">stackoverflow</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">linkedin</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>!function(){var e=document.createElement("script");if(!("noModule"in e)&&"onbeforeload"in e){var t=!1;document.addEventListener("beforeload",function(n){if(n.target===e)t=!0;else if(!n.target.hasAttribute("nomodule")||!t)return;n.preventDefault()},!0),e.type="module",e.src=".",document.head.appendChild(e),e.remove()}}();
+</script>
+  <script src="/assets/js/hydejack-9.0.4.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.0.4.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates:</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading: <a class="this-link" href=""></a>.
+    </p>
+  </div>
+</template>
+
+  <template id="_forward-template">
+  <button id="_forward" class="forward nav-btn no-hover">
+    <span class="sr-only">Forward</span>
+    <span class="icon-arrow-right2"></span>
+  </button>
+</template>
+
+  <template id="_back-template">
+  <button id="_back" class="back nav-btn no-hover">
+    <span class="sr-only">Back</span>
+    <span class="icon-arrow-left2"></span>
+  </button>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+</div>
+
+
+</body>
+</html>

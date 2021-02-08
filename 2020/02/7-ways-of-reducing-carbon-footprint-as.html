@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.0.4 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+
+<title>8 ways of reducing carbon footprint as a software developer | A Penguin In Redmond</title>
+<meta name="description" content="As we all know, our climate is changing for the worse. This is largely due to humanity’s excessive carbon emissions, and we’re not doing enough to reduce them. What can we, humble software developers, do to help? Here are some suggestions.
+">
+<link rel="canonical" href="/2020/02/7-ways-of-reducing-carbon-footprint-as.html">
+
+  
+
+  
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="A Penguin In Redmond">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="A Penguin In Redmond">
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta name="generator" content="Hydejack v9.0.4" />
+
+
+<link rel="alternate" href="/2009/12/in-visual-c-2008-express-save-doesnt.html" hreflang="en">
+
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="A Penguin In Redmond" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+<script>!function(e,t){"use strict";function n(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}e.loadJS=function(e,o){var r=t.createElement("script");r.src=e,o&&n(r,"load",o,{once:!0});var a=t.scripts[0];return a.parentNode.insertBefore(r,a),r},e._loaded=!1,e.loadJSDeferred=function(o,r){function a(){e._loaded=!0,r&&n(c,"load",r,{once:!0});var o=t.scripts[0];o.parentNode.insertBefore(c,o)}var c=t.createElement("script");return c.src=o,e._loaded?a():n(e,"load",a,{once:!0}),c},e.setRel=e.setRelStylesheet=function(e){function o(){this.rel="stylesheet"}n(t.getElementById(e),"load",o,{once:!0})}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+}(window);
+</script>
+
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.0.4.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-darkened: #409ba3;--theme-color: rgb(25,55,71)}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="">
+  
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  
+
+
+
+
+
+<article id="post-2020-02-7-ways-of-reducing-carbon-footprint-as" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        8 ways of reducing carbon footprint as a software developer
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-02-27T12:21:00+01:00">27 Feb 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Climate change</span>, <span>Programming</span>
+
+    </div>
+
+    
+    
+      
+        <div class="lead aspect-ratio sixteen-nine flip-project-img">
+          
+
+
+<img
+  
+    src="/images/blog3.jpg"
+    
+    
+  
+  alt="8 ways of reducing carbon footprint as a software developer"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+
+
+  </header>
+
+  
+    As we all know, our climate is changing for the worse. This is largely due to humanity's excessive carbon emissions, and we're not doing enough to reduce them. What can we, humble software developers, do to help? Here are some suggestions.
+<!--end_excerpt-->
+<h2>Reducing your software’s carbon footprint</h2>Both the process of creating software and the use of the software have carbon footprints. To keep these footprints as small as possible, the process needs to be efficient, and so does the software itself. Here are some suggestions to achieve this. <br /><h3>Reducing your development process’ carbon footprint</h3>Developing software requires a lot of resources. Developers are working on the product in their heated or cooled offices, meeting, writing specs, coding, building, running tests. Spending less time and other resources on developing your software will reduce the carbon footprint of your development process.  <h4>1. Use agile methodologies to make the development process as efficient as possible</h4>Agile methodologies help eliminate a lot of unneeded stuff from the development process. Reducing carbon footprint was probably not the main reason that they were developed, but it’s a nice side effect. Apply the <a href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it">YAGNI</a> concept relentlessly. Spend less time on all those UML diagrams that nobody ever reads closely.<br /><div><h4>2. Prefer teleconferencing over physical meetings</h4>When not everyone who is involved in the project is in the same place, try to hold meetings using tools like Skype as much as possible. You don't need to get everyone into their cars and meet somewhere in person just to decide whether feature X or feature Y will be developed first.<br /><h3>Reducing your source code’s carbon footprint</h3><h3></h3>The slower your software, the more CPU cycles it uses. Using more CPU cycles means more energy consumption, so more carbon emissions. Making your software run faster starts with your source code. In my experience, many software developers haven't paid enough attention to this aspect. 20 years ago, people told me: "It doesn't matter, hardware and CPUs get faster all the time anyway." 10 years ago they went: "Oh, we'll just add servers until it runs fast enough." Nowadays, thankfully, this is starting to change, mostly thanks to cloud services that charge us more money if our software runs slower. I could write an entire blog post series on making code faster, but here are just some suggestions:<br /><h4>3. Write code that's as fast as possible</h4>Make sure every snippet of code you write is fast. Here are some tips that can improve the speediness of your code: <br /><ul><li><b>Stop copying all those strings. </b>You don't need to copy a multi-megabyte <code>char *</code> string into an <code>std::string</code> just to execute the method <code>front()</code> to get its first character. Move contents from one string to the other instead of copying whenever possible. Also, use StringBuilder-like classes to construct large strings. <br /><b></b></li><li><b>When you're done, stop your iterations. </b>Our <code>for</code> and <code>while</code> loops loops often run too long. Many times, the loop is no longer needed once some condition is met. This condition is not necessarily checked inside the <code>while</code> statement, maybe because it depends on too many things, or just because the developer didn't realize at the time that continuing after this is not needed. Insert <code>break</code> or <code>continue</code> statements whenever possible. <br /><b></b></li><li><b>Use hash tables for searches. </b>Too often, a large array is searched for some entry. In the worst case (the entry isn't in it), this means iterating the whole array. A hash table would be much faster in many cases.<br /><b></b></li><li><b>Don't overuse patterns and frameworks. </b>Sure, patterns and frameworks can help to keep your code elegant and readable, but, if applied unwisely, they may also cause overly complicated code that gets unnecessarily slow. I'm talking about the kind of code that, in the words of Jamie Zawinski (as <a href="https://www.joelonsoftware.com/2009/09/23/the-duct-tape-programmer/" target="_blank">quoted</a> by Joel Spolsky), "add[s] another abstraction layer here, and ha[s] a delegate for this delegate for this delegate" just to make a character appear on the screen. To drive in a nail, just use a hammer, not some beautifully engineered robot that happens to have a really hard thumb which, given the right parameters and instructions, could also be used to drive in a nail, if the circumstances are right.<b>&nbsp;</b></li><li><b>Limit file system I/O and network communications.&nbsp; </b>File system I/O and network access not only make your software slower, but they also cause more power consumption by using more hardware resources such as storage devices, network devices, remote services. It seems good practice then to limit them as much as possible. Log only when it makes sense, cache data coming from web services locally if it doesn't change often, compress data before sending it over the network or to storage, etc.</li></ul></div><div><h3>Reducing your production releases’ carbon footprint</h3><div>After the coding is done, there are still many ways to improve speed before you deploy your software.<br /><h4>4. Use tools to optimize your builds</h4>There are many tools to help make the software speedier during the build process. Set the optimization levels of your compilers as high as possible (try -O3 in gcc). Minify html, css and JavaScript (e.g. with <a href="http://yui.github.io/yuicompressor/" target="_blank">YUI Compressor</a>) to avoid sending unnecessarily big files over the internet.<br /><h2>Reducing your own carbon footprint</h2>So that was about our software. Now let's take a look at ourselves in relation to our job. The frequency and manner of our commute impact our own carbon footprint. So does our behavior during work.<br /><h4>5. Work from home as much as possible</h4>For a lot of software development related tasks you don’t actually need to get into your car and show up at the office. You can get a lot of work done sitting on your own couch with your laptop, using remote connections when needed.<br /><h4>6. If possible, use public transport to go to the office</h4>Public  transport is of course much cleaner than using your own car to get to the office. Most trains and buses have Wi-Fi, so you can even get some work done during your commute.&nbsp; Or read a good book.<br /><h4>7. Don’t stream music during work; play your own MP3s and CDs instead</h4>Of  course you need a serious soundtrack when you’re doing some serious  coding, but streaming all that music from the cloud all day long is not  necessary and has quite a <a href="https://theconversation.com/music-streaming-has-a-far-worse-carbon-footprint-than-the-heyday-of-records-and-cds-new-findings-114944">carbon footprint</a>.  The fact that I own CDs probably shows my age, but if you don’t have any, you probably do have some MP3s that can get the job done. Or borrow some CDs from your parents. You'll be amazed at the sound quality.<br /><h4>8. Turn off your computer after work</h4>No need to keep it running, waiting for your keystrokes that won't come until the next morning.<br /><br />Those were my suggestions for reducing developer carbon footprint. Obviously, they won't be enough to save the planet, but let's hope they can help a bit.</div></div>
+  
+</article>
+
+
+<hr class="dingbat related" />
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/images/bas.jpg"
+  
+  alt="Bas"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Hi, I’m Bas, software developer and this blog’s main author.</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">stackoverflow</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">linkedin</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/2021/02/08/2012-01-19-syntax-highlighting-for-source-code-on.html" class="flip-title"><span></span></a>  <time class="faded fine" datetime="2021-02-08T13:22:50+01:00">08 Feb 2021</time></li>                        <li class="h4">  <a href="/2020/09/updating-old-app-made-with-visual.html" class="flip-title"><span>Updating an old app made with Visual Studio Tools for Apache Cordova</span></a>  <time class="faded fine" datetime="2020-09-01T10:07:00+02:00">01 Sep 2020</time></li>                        <li class="h4">  <a href="/2020/03/profiling-php-with-xdebug-and.html" class="flip-title"><span>Profiling PHP with XDebug and KCacheGrind</span></a>  <time class="faded fine" datetime="2020-03-11T13:26:00+01:00">11 Mar 2020</time></li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2020. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.0.4</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/icons/icon.png" class="avatar" alt="A Penguin In Redmond" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">A Penguin In Redmond</h2></a>
+    
+    
+      <p class="">
+        Software development
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item"
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item"
+          
+        >
+          About
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="https://kontactr.com/form-page/f8d372d656bd715"
+          class="sidebar-nav-item"
+          
+        >
+          Contact
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">stackoverflow</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">linkedin</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>!function(){var e=document.createElement("script");if(!("noModule"in e)&&"onbeforeload"in e){var t=!1;document.addEventListener("beforeload",function(n){if(n.target===e)t=!0;else if(!n.target.hasAttribute("nomodule")||!t)return;n.preventDefault()},!0),e.type="module",e.src=".",document.head.appendChild(e),e.remove()}}();
+</script>
+  <script src="/assets/js/hydejack-9.0.4.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.0.4.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates:</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading: <a class="this-link" href=""></a>.
+    </p>
+  </div>
+</template>
+
+  <template id="_forward-template">
+  <button id="_forward" class="forward nav-btn no-hover">
+    <span class="sr-only">Forward</span>
+    <span class="icon-arrow-right2"></span>
+  </button>
+</template>
+
+  <template id="_back-template">
+  <button id="_back" class="back nav-btn no-hover">
+    <span class="sr-only">Back</span>
+    <span class="icon-arrow-left2"></span>
+  </button>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+</div>
+
+
+</body>
+</html>

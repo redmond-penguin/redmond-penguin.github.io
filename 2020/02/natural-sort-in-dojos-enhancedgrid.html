@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.0.4 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+
+<title>Natural Sort in dojo's EnhancedGrid | A Penguin In Redmond</title>
+<meta name="description" content="“Hi, I would like to report a bug in the web app you built for us.” “Sure, what seems to be the problem?” “The order in the tables is all wrong.” “Really? You can change the order of the items in the table by clicking on the column header that you wish to sort on.” “I know, and I did. But it sorts them wrong.” “OK, could you give me an example of what is ordered wrong?” “Sure. I have three rooms, called Room 3, Room 50 and Room 225. If I click the room column’s header, it should order them in that order: Room 3, Room 50 and then Room 225. Instead, I get Room 225, Room 3, Room 50.” “Oh, I see. Well, technically, that is the correct order. 2 before 3 before 5.” “But it’s 225, not 2. And 50, not 5.” “Yes, but the sorting happens character by character. It checks the ASCII code of -“ “Axi what? Look, I’m not interested in the technicalities, could you just get it to work properly?”  &lt;h2&gt;Natural Sort&lt;/h2&gt;&lt;p&gt;This kind of dialogue happens in a lot of software projects at some point. Confusion arises because the two participants are talking about two different ways of sorting.
+">
+<link rel="canonical" href="/2020/02/natural-sort-in-dojos-enhancedgrid.html">
+
+  
+
+  
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="A Penguin In Redmond">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="A Penguin In Redmond">
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta name="generator" content="Hydejack v9.0.4" />
+
+
+<link rel="alternate" href="/2009/12/in-visual-c-2008-express-save-doesnt.html" hreflang="en">
+
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="A Penguin In Redmond" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+<script>!function(e,t){"use strict";function n(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}e.loadJS=function(e,o){var r=t.createElement("script");r.src=e,o&&n(r,"load",o,{once:!0});var a=t.scripts[0];return a.parentNode.insertBefore(r,a),r},e._loaded=!1,e.loadJSDeferred=function(o,r){function a(){e._loaded=!0,r&&n(c,"load",r,{once:!0});var o=t.scripts[0];o.parentNode.insertBefore(c,o)}var c=t.createElement("script");return c.src=o,e._loaded?a():n(e,"load",a,{once:!0}),c},e.setRel=e.setRelStylesheet=function(e){function o(){this.rel="stylesheet"}n(t.getElementById(e),"load",o,{once:!0})}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+}(window);
+</script>
+
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.0.4.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-darkened: #409ba3;--theme-color: rgb(25,55,71)}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="">
+  
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  
+
+
+
+
+
+<article id="post-2020-02-natural-sort-in-dojos-enhancedgrid" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Natural Sort in dojo's EnhancedGrid
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-02-13T12:20:00+01:00">13 Feb 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Javascript</span>, <span>Programming</span>, <span>Dojox.grid.enhancedgrid</span>, <span>Dojo</span>
+
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    "Hi, I would like to report a bug in the web app you built for us." <br />"Sure, what seems to be the problem?" <br />"The order in the tables is all wrong." <br />"Really? You can change the order of the items in the table by clicking on the column header that you wish to sort on." <br />"I know, and I did. But it sorts them wrong." <br />"OK, could you give me an example of what is ordered wrong?" <br />"Sure. I have three rooms, called Room 3, Room 50 and Room 225. If I click the room column's header, it should order them in that order: Room 3, Room 50 and then Room 225. Instead, I get Room 225, Room 3, Room 50." <br />"Oh, I see. Well, technically, that is the correct order. 2 before 3 before 5." <br />"But it's 225, not 2. And 50, not 5." <br />"Yes, but the sorting happens character by character. It checks the ASCII code of -" <br />"Axi what? Look, I'm not interested in the technicalities, could you just get it to work properly?" <br /> <h2>Natural Sort</h2><p>This kind of dialogue happens in a lot of software projects at some point. Confusion arises because the two participants are talking about two different ways of sorting. 
+<!--end_excerpt-->
+<p>The developer talks about the string sorting that is most common in programming languages which I will call ASCII sorting (image below). This sorting, as the developer tried to explain, compares the ASCII codes of the characters of two strings. As soon as it finds a difference, the string with the lowest ASCII code is decided to appear before the other one. So "13" appears before "2", because the ASCII code of first character "1" is lower than the ASCII code of "2". <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><img border="0" data-original-height="142" data-original-width="166" height="274" src="/images/normalsort.png" width="320" /></td></tr><tr><td class="tr-caption" style="text-align: center;">ASCII sort</td></tr></tbody></table><br>Another characteristic of ASCII sorting is an odd kind of case sensitivity. The ASCII codes of all lower case characters are higher than those of all upper case characters. This causes all words that start with a lower case character to appear after all words starting with upper case. So "room 1" would appear after all the other rooms with Rs, and even after any additional rooms with different capitals (e.g. after "Waiting room 100", even though R is clearly before W in the alphabet). <p>The customer wants numbers in the strings to be sorted numerically as much as possible (image below), and they want the strings to be alphabetically sorted, regardless of case. This calls for a far more intuitive way of sorting than the developer's one, and it's called <a href="https://en.wikipedia.org/wiki/Natural_sort_order">Natural Sort</a>. While it's more intuitive for the end user, it's also more complicated and less efficient from a technical point of view. This may explain why it's not the default sort in most programming languages. <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><img border="0" data-original-height="147" data-original-width="170" height="277" src="/images/naturalsort.png" width="320" /></td></tr><tr><td class="tr-caption" style="text-align: center;">Natural sort</td></tr></tbody></table><h2>Using Natural Sort in a dojox.grid.EnhancedGrid</h2>In dojo's EnhancedGrid, the sorting is, as the customer found out, ASCII based. There is no built-in option to change it to Natural Sort. Luckily there is a way to tweak the grid to use any sorting we want, so let's leverage that and help out the developer and the customer.<br />First we make a web page with the ASCII sorted version of the grid in the first image above. Create a file <b>index.html </b>with the following contents:<br />
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/claro.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojox/grid/enhanced/resources/claro/EnhancedGrid.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojox/grid/enhanced/resources/EnhancedGrid_rtl.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;style </span><span class="na">type=</span><span class="s">"text/css"</span><span class="nt">&gt;</span>
+            <span class="c">/*Grid needs an explicit width/height by default*/</span>
+            <span class="nf">#grid</span> <span class="p">{</span>
+                <span class="nl">width</span><span class="p">:</span> <span class="m">20em</span><span class="p">;</span>
+                <span class="nl">height</span><span class="p">:</span> <span class="m">20em</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="nt">&lt;/style&gt;</span>
+        <span class="nt">&lt;script&gt;</span>
+           <span class="kd">var</span> <span class="nx">dojoConfig</span> <span class="o">=</span> <span class="p">{</span> <span class="na">parseOnLoad</span><span class="p">:</span> <span class="kc">true</span> <span class="p">};</span>
+        <span class="nt">&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+            <span class="nx">require</span><span class="p">([</span>
+                <span class="dl">"</span><span class="s2">dojo/ready</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">dojox/grid/EnhancedGrid</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">dojo/data/ItemFileWriteStore</span><span class="dl">"</span>
+            <span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">ready</span><span class="p">,</span> <span class="nx">EnhancedGrid</span><span class="p">,</span> <span class="nx">ItemFileWriteStore</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="cm">/*set up data store*/</span>
+                    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="na">identifier</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span>
+                        <span class="na">items</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">col1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Room 50</span><span class="dl">"</span> <span class="p">},</span>
+                            <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">col1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Room 3</span><span class="dl">"</span> <span class="p">},</span>
+                            <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">col1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Room 225</span><span class="dl">"</span> <span class="p">},</span>
+                            <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="na">col1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">room 1</span><span class="dl">"</span> <span class="p">},</span>
+                            <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="na">col1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Waiting room 100</span><span class="dl">"</span> <span class="p">}</span>
+                    <span class="p">]};</span>
+                    <span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ItemFileWriteStore</span><span class="p">({</span><span class="na">data</span><span class="p">:</span> <span class="nx">data</span><span class="p">});</span>
+                    <span class="cm">/*set up layout*/</span>
+                    <span class="kd">var</span> <span class="nx">layout</span> <span class="o">=</span> <span class="p">[[</span>
+                        <span class="p">{</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Column 1</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">field</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">col1</span><span class="dl">'</span><span class="p">}</span>
+                    <span class="p">]];</span>
+                    <span class="cm">/*create a new grid:*/</span>
+                    <span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EnhancedGrid</span><span class="p">({</span>
+                        <span class="na">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">grid</span><span class="dl">'</span><span class="p">,</span>
+                        <span class="na">store</span><span class="p">:</span> <span class="nx">store</span><span class="p">,</span>
+                        <span class="na">structure</span><span class="p">:</span> <span class="nx">layout</span><span class="p">,</span>
+                        <span class="na">rowSelector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">20px</span><span class="dl">'</span><span class="p">},</span>
+                        <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">));</span>
+                    <span class="cm">/*append the new grid to the div*/</span>
+                    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="dl">"</span><span class="s2">gridDiv</span><span class="dl">"</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">grid</span><span class="p">.</span><span class="nx">domNode</span><span class="p">);</span>
+                    <span class="cm">/*Call startup() to render the grid*/</span>
+                    <span class="nx">grid</span><span class="p">.</span><span class="nx">startup</span><span class="p">();</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body</span> <span class="na">class=</span><span class="s">"claro"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"gridDiv"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+<p>If you open this file in your browser, you will see an unsorted table. Clicking the column's header once will sort the column ascendingly like in the first image.</p><p>How do we change the sorting behaviour of the grid to natural sort? The sorting behaviour is actually not specified in the grid itself, but in its store. A store has an optional member comparatorMap, which, if present, is an object that maps the data members (<b>id</b> and <b>col1</b> in our case) to <i>comparator</i> functions. A comparator function decides for any pair of items which one should come first during sorting. If the first item should come first, it returns -1, if the second one should come first, it returns 1, and if it doesn't matter, it returns 0. Great, but how do we get such a comparator function? As I said, natural sort is a bit complicated, so I won't try to come up with my own function. Instead, we head over to StackOverflow, where we find great solutions like <a href="https://stackoverflow.com/a/4373421/395083">this one</a>. At that link, copy the function <b>natSort</b> from the code snippet in kennebec's answer into the <b>index.html</b> file right under 
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ItemFileWriteStore</span><span class="p">({</span><span class="na">data</span><span class="p">:</span> <span class="nx">data</span><span class="p">});</span></code></pre></figure>
+Then add the following line to put this function in the comparatorMap for member <b>col1</b>:
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">store</span><span class="p">.</span><span class="nx">comparatorMap</span> <span class="o">=</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">col1</span><span class="dl">"</span><span class="p">:</span> <span class="nx">natSort</span> <span class="p">};</span></code></pre></figure>
+Now if you reload the page and click the header to sort the table, you will witness Natural Sort in action.
+  
+</article>
+
+
+<hr class="dingbat related" />
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/images/bas.jpg"
+  
+  alt="Bas"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Hi, I’m Bas, software developer and this blog’s main author.</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">stackoverflow</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">linkedin</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/2021/02/08/2012-01-19-syntax-highlighting-for-source-code-on.html" class="flip-title"><span></span></a>  <time class="faded fine" datetime="2021-02-08T13:22:50+01:00">08 Feb 2021</time></li>                        <li class="h4">  <a href="/2020/09/updating-old-app-made-with-visual.html" class="flip-title"><span>Updating an old app made with Visual Studio Tools for Apache Cordova</span></a>  <time class="faded fine" datetime="2020-09-01T10:07:00+02:00">01 Sep 2020</time></li>                        <li class="h4">  <a href="/2020/03/profiling-php-with-xdebug-and.html" class="flip-title"><span>Profiling PHP with XDebug and KCacheGrind</span></a>  <time class="faded fine" datetime="2020-03-11T13:26:00+01:00">11 Mar 2020</time></li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2020. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.0.4</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/icons/icon.png" class="avatar" alt="A Penguin In Redmond" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">A Penguin In Redmond</h2></a>
+    
+    
+      <p class="">
+        Software development
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item"
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item"
+          
+        >
+          About
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="https://kontactr.com/form-page/f8d372d656bd715"
+          class="sidebar-nav-item"
+          
+        >
+          Contact
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">stackoverflow</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">linkedin</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>!function(){var e=document.createElement("script");if(!("noModule"in e)&&"onbeforeload"in e){var t=!1;document.addEventListener("beforeload",function(n){if(n.target===e)t=!0;else if(!n.target.hasAttribute("nomodule")||!t)return;n.preventDefault()},!0),e.type="module",e.src=".",document.head.appendChild(e),e.remove()}}();
+</script>
+  <script src="/assets/js/hydejack-9.0.4.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.0.4.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates:</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading: <a class="this-link" href=""></a>.
+    </p>
+  </div>
+</template>
+
+  <template id="_forward-template">
+  <button id="_forward" class="forward nav-btn no-hover">
+    <span class="sr-only">Forward</span>
+    <span class="icon-arrow-right2"></span>
+  </button>
+</template>
+
+  <template id="_back-template">
+  <button id="_back" class="back nav-btn no-hover">
+    <span class="sr-only">Back</span>
+    <span class="icon-arrow-left2"></span>
+  </button>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+</div>
+
+
+</body>
+</html>

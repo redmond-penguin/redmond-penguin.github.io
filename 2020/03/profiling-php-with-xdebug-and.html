@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.0.4 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+
+<title>Profiling PHP with XDebug and KCacheGrind | A Penguin In Redmond</title>
+<meta name="description" content="Does it take too long for your PHP page to load in the browser? Have you been staring at the code for ages and tried many fixes that didn’t help much? Still no idea where the performance bottleneck is? Could it be somewhere in that bloated framework that you use? Or in some new class that your co-worker made last week? Or, heaven forbid, somewhere in your own code? To find out, a profiler will be of tremendous help. In this post, I will show how to use XDebug’s profiler and  KCacheGrind to help make your code faster.
+">
+<link rel="canonical" href="/2020/03/profiling-php-with-xdebug-and.html">
+
+  
+
+  
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="A Penguin In Redmond">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="A Penguin In Redmond">
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta name="generator" content="Hydejack v9.0.4" />
+
+
+<link rel="alternate" href="/2009/12/in-visual-c-2008-express-save-doesnt.html" hreflang="en">
+
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="A Penguin In Redmond" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+<script>!function(e,t){"use strict";function n(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}e.loadJS=function(e,o){var r=t.createElement("script");r.src=e,o&&n(r,"load",o,{once:!0});var a=t.scripts[0];return a.parentNode.insertBefore(r,a),r},e._loaded=!1,e.loadJSDeferred=function(o,r){function a(){e._loaded=!0,r&&n(c,"load",r,{once:!0});var o=t.scripts[0];o.parentNode.insertBefore(c,o)}var c=t.createElement("script");return c.src=o,e._loaded?a():n(e,"load",a,{once:!0}),c},e.setRel=e.setRelStylesheet=function(e){function o(){this.rel="stylesheet"}n(t.getElementById(e),"load",o,{once:!0})}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+}(window);
+</script>
+
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.0.4.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-darkened: #409ba3;--theme-color: rgb(25,55,71)}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="">
+  
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  
+
+
+
+
+
+<article id="post-2020-03-profiling-php-with-xdebug-and" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Profiling PHP with XDebug and KCacheGrind
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <time datetime="2020-03-11T13:26:00+01:00">11 Mar 2020</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Programming</span>, <span>Development tools</span>, <span>Php</span>
+
+    </div>
+
+    
+    
+      
+        <div class="lead aspect-ratio sixteen-nine flip-project-img">
+          
+
+
+<img
+  
+    src="/images/kcachegrind.png"
+    
+    
+  
+  alt="Profiling PHP with XDebug and KCacheGrind"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+
+
+  </header>
+
+  
+    Does it take too long for your PHP page to load in the browser? Have you been staring at the code for ages and tried many fixes that didn't help much? Still no idea where the performance bottleneck is? Could it be somewhere in that bloated framework that you use? Or in some new class that your co-worker made last week? Or, heaven forbid, somewhere in your own code? To find out, a profiler will be of tremendous help. In this post, I will show how to use <a href="https://xdebug.org/docs/profiler">XDebug's profiler</a> and  <a href="https://kcachegrind.github.io/html/Home.html">KCacheGrind</a> to help make your code faster.
+<!--end_excerpt-->
+<h3>Prerequisites</h3>I assume you have Apache and PHP already installed on a Linux machine. I will also assume you use a RedHat type of distribution (RHEL, CentOS, Fedora), but that's just because I happen to use such a distribution (<a href="https://www.centos.org/">CentOS</a> 7 to be precise). With small modifications, the following will probably also work in other distributions. <br />Maybe you already have <a href="https://xdebug.org/">XDebug</a>, because it's also a great debugging tool that works very will with many IDEs and with <a href="https://code.visualstudio.com/">Visual Studio Code</a>. If you don't have it yet, install it: <br />
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>yum <span class="nb">install </span>php-pecl-xdebug</code></pre></figure>
+To visualize the profiling results, we will use <a href="https://kcachegrind.github.io/html/Home.html">KCacheGrind</a>: <br />
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>yum <span class="nb">install </span>kdesdk-kcachegrind</code></pre></figure>
+Another prerequisite is that you have <b>enough disk space</b>, because the profiling data written to the filesystem by XDebug can get quite big. <br /><h3>Configuring XDebug profiler</h3>XDebug is a PHP extension, so it is configured in the PHP config file <code>php.ini</code>, or in CentOS 7's case in the file <code>/etc/php.d/xdebug.ini</code>. Edit this file: <br />
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>vi /etc/php.d/xdebug.ini</code></pre></figure>
+Add the following line to enable profiling:
+<figure class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="py">xdebug.profiler_enable</span> <span class="p">=</span> <span class="s">1</span></code></pre></figure>
+Make sure to <b>remove or comment that line when you're done</b> because it will slow things down and write a lot of data to disk. <br />To tell XDebug where in the file system it should write its profiling data (e.g. <code>/tmp/</code>), add the following configuration:
+<figure class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="py">xdebug.profiler_output_dir</span> <span class="p">=</span> <span class="s">/tmp/</span></code></pre></figure>
+Check that Apache has write permissions for that directory. Now restart Apache to let it use the new settings:
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>service httpd restart</code></pre></figure>
+<h3>Running a profiling session</h3>Now open the slow page in your browser. After it finished loading, check the files in the profiler output directory (/tmp in the example) that start with <code>cachegrind.out</code>. These contain the profiling data for the various Apache processes. The numbers at the end indicate the Apache process ids. <br /><h3>Analyzing the profiling data</h3>You need to find the cachegrind.out file that corresponds to the Apache (httpd) process that served the page you just opened in your browser. Maybe you know the relevant Apache process id. If so, the file you're looking for is cachegrind.out.&lt;id&gt;. If you're not sure which Apache process served your page, just try the file with the biggest size, and if it turns out that it contains data completely unrelated to your session, try the others. <br />Open the file with KCacheGrind: 
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">kcachegrind /tmp/cachegrind.out.&lt;<span class="nb">id</span><span class="o">&gt;</span></code></pre></figure>
+    In KCacheGrind, on the left, you will see a list of functions, ordered by execution time. So the top one takes most time. In the column <i>Self</i> you can see how much of that time is spent directly in that function. The rest of the time is spent in other functions that are called by the function. To see which functions are called and how much time they take, click on the function's row. More details will apear on the right. The tab <i>Callees</i> at the bottom shows the called functions. <br>A lot more information can be seen in KCacheGrind, so check out its excellent Help documentation. But with just the data discussed above, you can identify and fix many bottlenecks already. If you see that a function has a lot of <i>Self</i> time, have a look at the code in that function and see if anything can be optimized there. If a called function takes a lot of time, see if you can avoid calling that function, or call it less often. Or click on that function to get more details and see if you can optimize that one. <p>Good luck optimizing your PHP code. If it gets used a lot, you'll save many of us a lot of time, and your software's <a href="/2020/02/7-ways-of-reducing-carbon-footprint-as.html">carbon footprint</a> will be reduced.
+  
+</article>
+
+
+<hr class="dingbat related" />
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/images/bas.jpg"
+  
+  alt="Bas"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Hi, I’m Bas, software developer and this blog’s main author.</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">stackoverflow</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">linkedin</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/2021/02/08/2012-01-19-syntax-highlighting-for-source-code-on.html" class="flip-title"><span></span></a>  <time class="faded fine" datetime="2021-02-08T13:22:50+01:00">08 Feb 2021</time></li>                        <li class="h4">  <a href="/2020/09/updating-old-app-made-with-visual.html" class="flip-title"><span>Updating an old app made with Visual Studio Tools for Apache Cordova</span></a>  <time class="faded fine" datetime="2020-09-01T10:07:00+02:00">01 Sep 2020</time></li>                        <li class="h4">  <a href="/2020/03/getting-dates-week-number-in-javascript.html" class="flip-title"><span>Getting a date's week number in JavaScript using (tail) recursion</span></a>  <time class="faded fine" datetime="2020-03-05T15:03:00+01:00">05 Mar 2020</time></li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2020. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.0.4</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/icons/icon.png" class="avatar" alt="A Penguin In Redmond" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">A Penguin In Redmond</h2></a>
+    
+    
+      <p class="">
+        Software development
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item"
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item"
+          
+        >
+          About
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="https://kontactr.com/form-page/f8d372d656bd715"
+          class="sidebar-nav-item"
+          
+        >
+          Contact
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">stackoverflow</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
+      <span class="icon-link"></span>
+      <span class="sr-only">linkedin</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>!function(){var e=document.createElement("script");if(!("noModule"in e)&&"onbeforeload"in e){var t=!1;document.addEventListener("beforeload",function(n){if(n.target===e)t=!0;else if(!n.target.hasAttribute("nomodule")||!t)return;n.preventDefault()},!0),e.type="module",e.src=".",document.head.appendChild(e),e.remove()}}();
+</script>
+  <script src="/assets/js/hydejack-9.0.4.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.0.4.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates:</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading: <a class="this-link" href=""></a>.
+    </p>
+  </div>
+</template>
+
+  <template id="_forward-template">
+  <button id="_forward" class="forward nav-btn no-hover">
+    <span class="sr-only">Forward</span>
+    <span class="icon-arrow-right2"></span>
+  </button>
+</template>
+
+  <template id="_back-template">
+  <button id="_back" class="back nav-btn no-hover">
+    <span class="sr-only">Back</span>
+    <span class="icon-arrow-left2"></span>
+  </button>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+</div>
+
+
+</body>
+</html>
