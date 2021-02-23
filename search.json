@@ -1,0 +1,183 @@
+[
+  
+    {
+
+      "title"    : "Updating an old app made with Visual Studio Tools for Apache Cordova",
+      "url"      : "/2020/09/updating-old-app-made-with-visual.html",
+      "category" : "",
+      "tags"     : "JavaScript, Cordova, Visual Studio, Development tools, HTML, Visual Studio Code",
+      "date"     : "2020-09-01 10:07:00 +0200"
+
+    } ,
+  
+    {
+
+      "title"    : "Profiling PHP with XDebug and KCacheGrind",
+      "url"      : "/2020/03/profiling-php-with-xdebug-and.html",
+      "category" : "",
+      "tags"     : "Programming, Development tools, PHP",
+      "date"     : "2020-03-11 13:26:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Getting a date&#39;s week number in JavaScript using (tail) recursion",
+      "url"      : "/2020/03/getting-dates-week-number-in-javascript.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming",
+      "date"     : "2020-03-05 15:03:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Syntax highlighting for source code in Blogger Dynamic Views theme with Google code prettifier",
+      "url"      : "/2020/02/syntax-highlighting-for-source-code-in.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming, Blogger",
+      "date"     : "2020-02-19 10:46:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Natural Sort in dojo&#39;s EnhancedGrid",
+      "url"      : "/2020/02/natural-sort-in-dojos-enhancedgrid.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming, dojox.grid.EnhancedGrid, Dojo",
+      "date"     : "2020-02-13 12:20:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Revisiting my first programming language: Commodore 64 BASIC",
+      "url"      : "/2020/02/revisiting-my-first-programming.html",
+      "category" : "",
+      "tags"     : "Programming, BASIC",
+      "date"     : "2020-02-07 14:47:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Managing large amounts of files in Linux",
+      "url"      : "/2020/01/managing-large-amounts-of-files-in-linux.html",
+      "category" : "",
+      "tags"     : "Bash, linux",
+      "date"     : "2020-01-31 15:57:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Fixing Firefox issues with column headers for dojox.grid.EnhancedGrid",
+      "url"      : "/2017/02/fixing-firefox-issues-with-column.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming, Dojox.grid.DataGrid, Dojo",
+      "date"     : "2017-02-09 16:07:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Implementing an Android radio button dialog in QPython 3",
+      "url"      : "/2014/02/implementing-android-radio-button.html",
+      "category" : "",
+      "tags"     : "Programming, Python, Android",
+      "date"     : "2014-02-26 12:12:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Creating a baby journal with TiddlyWiki 5",
+      "url"      : "/2014/02/creating-baby-journal-with-tiddlywiki-5.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming, HTML, Parenting, TiddlyWiki",
+      "date"     : "2014-02-20 13:01:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Syntax highlighting for source code on Blogger 2: highlight.js",
+      "url"      : "/2014/01/syntax-highlighting-for-source-code-on.html",
+      "category" : "",
+      "tags"     : "Programming, Blogger",
+      "date"     : "2014-01-22 10:33:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Getting a date&#39;s week number in JavaScript",
+      "url"      : "/2014/01/getting-dates-week-number-in-javascript.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming",
+      "date"     : "2014-01-20 10:15:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Mounting a HiDrive in Ubuntu",
+      "url"      : "/2014/01/mounting-hidrive-in-ubuntu.html",
+      "category" : "",
+      "tags"     : "Ubuntu, linux, HiDrive",
+      "date"     : "2014-01-17 09:31:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Running interactive programs uninteractively in Bash scripts",
+      "url"      : "/2012/02/running-interactive-programs.html",
+      "category" : "",
+      "tags"     : "Bash, Programming, linux",
+      "date"     : "2012-02-08 13:02:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Dynamically hiding and showing columns in a Dojo DataGrid",
+      "url"      : "/2012/01/dynamically-hiding-and-showing-columns.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming, Dojox.grid.DataGrid, Dojo",
+      "date"     : "2012-01-24 15:52:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Firing an event after updating a DataGrid&#39;s data store in Dojo",
+      "url"      : "/2012/01/firing-event-after-updating-datagrids.html",
+      "category" : "",
+      "tags"     : "JavaScript, Programming, HTML, Dojox.grid.DataGrid, Dojo",
+      "date"     : "2012-01-23 12:28:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "Syntax highlighting for source code on Blogger",
+      "url"      : "/2012/01/syntax-highlighting-for-source-code-on.html",
+      "category" : "",
+      "tags"     : "Programming, Blogger",
+      "date"     : "2012-01-19 10:48:00 +0100"
+
+    } ,
+  
+    {
+
+      "title"    : "In Visual C# 2008 Express, Save doesn&#39;t always save your work",
+      "url"      : "/2009/12/in-visual-c-2008-express-save-doesnt.html",
+      "category" : "",
+      "tags"     : "Visual Studio, Development tools, C#",
+      "date"     : "2009-12-17 10:15:00 +0100"
+
+    } 
+  
+]

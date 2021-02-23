@@ -39,11 +39,10 @@ Powered by Hydejack v9.0.4 <https://hydejack.com/>
   
     
 
-<title>Getting a date's week number in JavaScript | A Penguin In Redmond</title>
-<meta name="description" content="
-JavaScript’s Date object doesn’t seem to have a built-in function to get the week number of a date. There are many JS libraries that do have support for this, but I needed to get the week number in an environment where including libraries is awkward (in a TiddlyWiki 5 macro, if you really want to know). So I decided to make my own function.
+<title>Search | A Penguin In Redmond</title>
+<meta name="description" content="Software development
 ">
-<link rel="canonical" href="/2014/01/getting-dates-week-number-in-javascript.html">
+<link rel="canonical" href="/search/">
 
   
 
@@ -162,59 +161,12 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);
 
   <main
   id="_main"
-  class="content layout-post"
+  class="content layout-page"
   role="main"
 >
-  
-
-
-
-
-
-<article id="post-2014-01-getting-dates-week-number-in-javascript" class="page post mb6" role="article">
+  <article class="page" role="article">
   <header>
-    <h1 class="post-title flip-project-title">
-      
-        Getting a date's week number in JavaScript
-      
-    </h1>
-
-    <div class="post-date">
-      
-      <time datetime="2014-01-20T10:15:00+01:00">20 Jan 2014</time>
-      
-      
-      
-      
-      
-
-
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-on <span>Javascript</span>, <span>Programming</span>
-
-    </div>
-
-    
-    
-
+    <h1 class="page-title">Search</h1>
     
 
 
@@ -224,207 +176,28 @@ on <span>Javascript</span>, <span>Programming</span>
 
   </header>
 
-  
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>JavaScript's <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a> object doesn't seem to have a built-in function to get the week number of a date. There are many JS libraries that do have support for this, but I needed to get the week number in an environment where including libraries is awkward (in a <a href="http://tiddlywiki.com/">TiddlyWiki 5</a> macro, if you really want to know). So I decided to make my own function. 
-<!--end_excerpt-->
-<p>A search on <a href="http://stackoverflow.com/">StackOverflow</a> revealed plenty of ways to do this, but they all seemed to use date subtractions based on the fact that a date is represented internally as the number of milliseconds since 1 January 1970. To me that fact feels like an internal implementation detail, so I don't really like to use it. Also, I don't (want to) know how things like leap seconds would influence the reliability of these subtractions. No choice then but to reinvent the wheel and come up with my own algorithm and implementation.  <p>The <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> standard says that week 1 of a year is the first week with a Thursday in that year. Based on that, I came up with the following "algorithm":  <ol><li>Given a date d, adapt this date to Thursday of the same week.</li><li>Subtract 1 week from this date and repeat this until the result is in the previous year.</li><li>The week number for date d is the number of subtractions needed in the previous step to get to the previous year.</li></ol> This surely isn't the fastest way to do it, but it takes a maximum of 53 subtractions, so it does have constant time complexity. Note that it does use subtractions, so we might end up using those milliseconds again, except that subtracting days can also be done by using the fact that JavaScript's <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setDate">setDate</a> function has a kind of "underflow" protection: if 0 or a negative value is passed, it adapts the date to the correct month. So we can delegate the subtractions to an internal JS function and assume that it works well.  <p>All these considerations led me to the following JavaScript function. Please let me know if there are any flaws anywhere in the function, or in the considerations.  <pre><code class="prettyprint"><br />function getWeekNumber(date) {<br />  var addDays = 0, dayOfWeek = date.getDay(), <br />    modifiedDate = new Date(date);<br />  // move to Thursday in same week as date<br />  if (dayOfWeek == 0) {<br />    addDays = -3;<br />  }<br />  else {<br />    addDays = 4 - dayOfWeek;<br />  }<br />  modifiedDate.setDate(modifiedDate.getDate() + addDays);<br />   <br />  // count weeks going back in time one week at a time<br />  // until we reach previous year<br />  var year = modifiedDate.getFullYear(), weekCount = 0;<br />  do {<br />    modifiedDate.setDate(modifiedDate.getDate() - 7);<br />    weekCount++;<br />  } while (modifiedDate.getFullYear() == year);<br />  return weekCount;<br />}<br /></code><br /></pre> <b>Note:</b> the code assumes weeks start on Mondays. In some countries (and in JavaScript) weeks start on Sundays, so there the first <i>if</i> statement would not be needed.  <p>Since we're on a web page, let's test the function: <h1>Today we are in week <span id="todaysWeekNumber"></span></h1><script type="text/javascript">
-function getWeekNumber(date) {     
-    var addDays = 0, dayOfWeek = date.getDay(), modifiedDate = new Date(date); 
-    // move to Thursday in same week as date     
-    if (dayOfWeek == 0) {
-        addDays = -3;
-    }     
-    else {         
-        addDays = 4 - dayOfWeek;     
-    }     
-    modifiedDate.setDate(modifiedDate.getDate() + addDays);          // count weeks going back in time one week at a time until we reach previous year     
-    var year = modifiedDate.getFullYear(), weekCount = 0;     
-    do {         
-        modifiedDate.setDate(modifiedDate.getDate() - 7);
-        weekCount++;     
-    } while (modifiedDate.getFullYear() == year);     
-    return weekCount; 
-} 
-todaysWeekNumber.innerHTML=getWeekNumber(new Date()); 
-</script>
-  
-</article>
-
-
-<hr class="dingbat related" />
-
-
-
-
-  
-     
-
-
-  <aside class="about related mt4 mb4" role="complementary">
-    
-    
-
-<div class="author mt4">
-  
-
-  
-    
-
-
-<img
-  
-    src="/images/bas.jpg"
-  
-  alt="Bas"
-  class="avatar"
-  
-  width="120"
-  height="120"
-  loading="lazy"
-/>
-
-  
-
-  
-  
-  <h2  class="page-title hr-bottom">
-    About
-  </h2>
-
-  <p>Hi, I’m Bas, software developer and this blog’s main author.</p>
-
-
-  <div class="sidebar-social">
-    <span class="sr-only">Social</span>
-<ul>
-  
-    
-      
-
-
-
-  
-
-  
-  
-  
-  
-
-  
-
-  
-
-  <li>
-    <a href="https://stackoverflow.com/users/395083/a-penguin-in-redmond" title="stackoverflow" class="no-mark-external">
-      <span class="icon-link"></span>
-      <span class="sr-only">stackoverflow</span>
-    </a>
-  </li>
-
-
-    
-      
-
-
-
-  
-
-  
-  
-  
-  
-
-  
-
-  
-
-  <li>
-    <a href="https://github.com/redmond-penguin" title="GitHub" class="no-mark-external">
-      <span class="icon-github"></span>
-      <span class="sr-only">GitHub</span>
-    </a>
-  </li>
-
-
-    
-      
-
-
-
-  
-
-  
-  
-  
-  
-
-  
-
-  
-
-  <li>
-    <a href="https://www.linkedin.com/in/apenguininredmond" title="linkedin" class="no-mark-external">
-      <span class="icon-link"></span>
-      <span class="sr-only">linkedin</span>
-    </a>
-  </li>
-
-
-    
-      
-
-
-
-  
-
-  
-  
-  
-  
-
-  
-
-  
-
-  <li>
-    <a href="https://twitter.com/RedmondPenguin" title="Twitter" class="no-mark-external">
-      <span class="icon-twitter"></span>
-      <span class="sr-only">Twitter</span>
-    </a>
-  </li>
-
-
-    
-  
-</ul>
-
-  </div>
+  <!-- Html Elements for Search -->
+<div id="search-container">
+<input type="text" id="search-input" placeholder="search..." />
+<ul id="results-container"></ul>
 </div>
 
-  </aside>
+<!-- Script pointing to search-script.js -->
+<script src="/js/simple-jekyll-search.min.js" type="text/javascript"></script>
+
+<!-- Configuration -->
+<script>
+SimpleJekyllSearch({
+  searchInput: document.getElementById('search-input'),
+  resultsContainer: document.getElementById('results-container'),
+  json: '/search.json'
+})
+</script>
 
 
   
 
-  
-  
-
-  
-    
-
-
-  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/2020/09/updating-old-app-made-with-visual.html" class="flip-title"><span>Updating an old app made with Visual Studio Tools for Apache Cordova</span></a>  <time class="faded fine" datetime="2020-09-01T10:07:00+02:00">01 Sep 2020</time></li>                        <li class="h4">  <a href="/2020/03/profiling-php-with-xdebug-and.html" class="flip-title"><span>Profiling PHP with XDebug and KCacheGrind</span></a>  <time class="faded fine" datetime="2020-03-11T13:26:00+01:00">11 Mar 2020</time></li>                        <li class="h4">  <a href="/2020/03/getting-dates-week-number-in-javascript.html" class="flip-title"><span>Getting a date's week number in JavaScript using (tail) recursion</span></a>  <time class="faded fine" datetime="2020-03-05T15:03:00+01:00">05 Mar 2020</time></li>            </ul></aside>
-
-  
-
-  
-  
-
-  
-    
-
-  
-
+</article>
 
   
 <footer class="content" role="contentinfo">
