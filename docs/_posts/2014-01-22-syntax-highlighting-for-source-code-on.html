@@ -1,0 +1,15 @@
+---
+layout: post
+title: 'Syntax highlighting for source code on Blogger 2: highlight.js'
+date: '2014-01-22T10:33:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- Programming
+- Blogger
+modified_time: '2014-02-13T10:01:12.979+01:00'
+permalink: /2014/01/syntax-highlighting-for-source-code-on.html
+---
+
+After using the excellent <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a> by Alex Gorbatchev for a while (see <a href="http://a-penguin-in-redmond.blogspot.com/2012/01/syntax-highlighting-for-source-code-on.html">this post</a>), I decided it was time for a change, and tried <a href="http://highlightjs.org/">highlight.js</a>. Here's how to set it up to work with a Blogger blog: 
+<!--end_excerpt-->
+<ol><li>&nbsp;On your blog's dashboard, click <b>Template</b> and then <b>Edit HTML</b>. You'll get a warning that says that you may mess up your blog, but since you're an ace programmer anyway, you don't mind much and you click <b>Proceed</b>.</li><li>Find the closing &lt;/head&gt; tag and <i>right above </i>it, paste the following:<br><pre><code><br />&lt;!--SYNTAX HIGHLIGHTER BEGINS--&gt;<br />&lt;link href='http://yandex.st/highlightjs/8.0/styles/default.min.css' rel='stylesheet'/&gt;<br />&lt;script src='http://yandex.st/highlightjs/8.0/highlight.min.js'&gt;&lt;/script&gt;<br />&lt;script&gt;hljs.initHighlightingOnLoad();&lt;/script&gt;<br />&lt;!--SYNTAX HIGHLIGHTER ENDS--&gt;<br /></code></pre></li><li>Click <b>Save</b>. </li><li>Now, to use the syntax hightlighting in your Blogger post, click <b>HTML</b> in the Edit Post window, and write code like this (the example is for HTML code - notice the <b>&amp;lt;</b> instead of <b>&lt;</b> to prevent issues): <pre><code><br />&lt;pre&gt;&lt;code&gt;<br />&amp;lt;input type="Submit" value="Submit" /&gt;<br />&lt;/code&gt;&lt;/pre&gt;<br /></code></pre>to get this in the resulting post: <pre><code><br />&lt;input type="Submit" value="Submit" /&gt;<br /></code></pre></li></ol><br>That's all! <p><b>Update:</b> to get the horizontal scrollbar if the lines are too long to fit, add the following after the &lt;link> line above: <pre><code><br />&lt;style type="text/css"><br />.hljs {<br />  overflow-x: auto;<br />}<br />&lt;/style><br /></pre></code>

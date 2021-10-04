@@ -1,0 +1,19 @@
+---
+layout: post
+title: Fixing Firefox issues with column headers for dojox.grid.EnhancedGrid
+date: '2017-02-09T16:07:00.001+01:00'
+author: A Penguin in Redmond
+tags:
+- JavaScript
+- Programming
+- Dojox.grid.DataGrid
+- Dojo
+modified_time: '2017-02-09T16:11:12.828+01:00'
+permalink: /2017/02/fixing-firefox-issues-with-column.html
+---
+
+<p>In Firefox, clicking a <a href="http://dojotoolkit.org/reference-guide/1.10/dojox/grid/EnhancedGrid.html">dojox.grid.EnhancedGrid</a>’s column header to change sorting only works for the first column. Clicking another column’s header only shows a splitter. The same goes for right-clicking a column header to bring up a popup menu: it only works in the first column. In other browsers this works fine.</p> 
+<!--end_excerpt-->
+<p>The cause seems to be a workaround for an issue in older Firefox versions, implemented in EnhancedGrid.js. The issue no longer exists in recent Firefox versions, but the workaround introduces the issues mentioned in the first paragraph. This is detailed in <a href="https://bugs.dojotoolkit.org/ticket/17375">this bug</a>. The bug also has a proposed fix, which never got into the dojo release (support for EnhancedGrid is very limited; dojo urges us to migrate to dgrid and/or gridx instead).</p>  <p>So we need to apply our own workaround to get the grid working properly again in Firefox (or migrate to dgrid/gridx if we have the time and the energy). A workaround to work around the workaround, if you see what I mean. This means neutralizing the function createView in EnhancedGrid.js. I managed to do so by assigning my own createView function to the grid which just calls this function in the base class (DataGrid). I added the following to the grid's data-dojo-props:</p>  <pre><code>
+<br />createView: function () { return dojox.grid.DataGrid.prototype.createView.apply(this, arguments); }
+<br /></pre></code>

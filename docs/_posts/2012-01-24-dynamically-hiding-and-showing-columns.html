@@ -1,0 +1,17 @@
+---
+layout: post
+title: Dynamically hiding and showing columns in a Dojo DataGrid
+date: '2012-01-24T15:52:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- JavaScript
+- Programming
+- Dojox.grid.DataGrid
+- Dojo
+modified_time: '2014-01-21T09:53:43.862+01:00'
+permalink: /2012/01/dynamically-hiding-and-showing-columns.html
+---
+
+<p>Still having fun with my DataGrid. (See my <a href="http://a-penguin-in-redmond.blogspot.com/2012/01/firing-event-after-updating-datagrids.html">previous post</a>for more DataGrid joy.) <p>Now I had a big DataGrid with lots of columns and rows. It got so big that I decided it might be a good idea to hide some rarely needed columns when the user clicks a button. As I found out, the JavaScript code to show or hide a DataGrid's column is:
+<!--end_excerpt-->
+<pre><code class="language-javascript"><br />grid.layout.setColumnVisibility(i, visible);<br /></code></pre>in which <b>grid</b> is the DataGrid, <b>i</b> is the column number and <b>visible</b> is <i>true</i> (visible) or <i>false</i> (invisible). This worked, but with lots of columns and rows, it took forever to show or hide the columns. The <a href="http://dojotoolkit.org/api/1.6/dojox/grid/DataGrid">API</a> mentions the methods <b>beginUpdate()</b> and <b>endUpdate()</b>, which should speed things up when you "make multiple changes to rows". Although I'm not actually changing the rows (just the columns), I decided to give it a try: <pre><code class="language-javascript"><br />grid.beginUpdate();<br />grid.layout.setColumnVisibility(i, visible);<br />...<br />grid.layout.setColumnVisibility(j, visible2);<br />grid.endUpdate();<br /></code></pre>This made the hiding/showing at least ten times faster!

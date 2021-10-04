@@ -1,0 +1,63 @@
+---
+layout: post
+title: Getting a date's week number in JavaScript using (tail) recursion
+date: '2020-03-05T15:03:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- JavaScript
+- Programming
+modified_time: '2020-03-09T21:35:03.419+01:00'
+permalink: /2020/03/getting-dates-week-number-in-javascript.html
+---
+
+Several years ago I wrote a <a href="{{ site.baseurl }}{% post_url 2014-01-20-getting-dates-week-number-in-javascript %}">post</a> about how to calculate the <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> week number of a given date without using an external library like <a href="https://momentjs.com/">Moment.js</a> and without using ugly implementation details such as seconds since 1970. It worked, but it wasn't the most elegant code ever. It used a <code>while</code> loop. Maybe it's just me, but I don't get along well with  <code>while</code> loops. I always get the while condition wrong at first, or I forget to increment or decrement something, and I end up with a loop that lasts forever or crashes my program. <br>An alternative for a <code>while</code> loop is recursion. In this post, I'll examine what happens if I change the iterative function of that old post to a recursive one.<br><br>
+<!--end_excerpt-->
+<h3>The original iterative function </h3>To recapture, the algorithm of the original function was:<br><ol><li>Given a date d, adapt this date to Thursday of the same week.&nbsp;</li><li>Subtract 1 week from this date and repeat this until the result is in the previous year.&nbsp;</li><li>The week number for date d is the number of subtractions needed in the previous step to get to the previous year.&nbsp;</li></ol>Here is a slightly modified version of the <a href="{{ site.baseurl }}{% post_url 2014-01-20-getting-dates-week-number-in-javascript %}">original</a> code:<br><br>
+{% highlight javascript %}
+function createThursdayDate(date) {
+    "use strict";
+    let dayOfWeek = date.getDay();
+    let newDate = new Date(date);
+    newDate.setHours(12);
+    if (dayOfWeek != 4) {
+        let addDays = (dayOfWeek == 0 ? -3 : 4 - dayOfWeek);
+        newDate.setDate(newDate.getDate() + addDays);
+    }
+    return newDate;
+}
+
+function getWeekNumber(date) {
+    "use strict";
+    let modifiedDate = createThursdayDate(date);
+    let year = modifiedDate.getFullYear();
+    let weekCount = 0;
+    do {
+        modifiedDate.setDate(modifiedDate.getDate() - 7);
+        weekCount++;
+    } while (modifiedDate.getFullYear() == year);
+    return weekCount;
+}{% endhighlight %}
+    <br>I've encapsulated step 1 of the algorithm in the auxiliary function <code>createThursdayDate</code>. First it creates a new date which is a copy of <code>date</code>. This is necessary because the JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a> object methods change their own Date object, and we don't want to change our input variable <code>date</code>. Then, it sets the new date's hour to 12. This just is to avoid potential issues when the time of the original date is around midnight and overflow might occur as we subtract days and we pass days with one hour less because of daylight saving time. Finally it adapts the new date to be on Thursday in the same ISO 8601 week as the original date. <p>The function <code>getWeekNumber</code> itself hasn't fundamentally changed. It calls the new <code>createThursdayDate</code>, and then performs steps 2 and 3 of the algorithm like before, using a while loop.  </p><h3>A new recursive function</h3>A <i>recursive</i> function is a function that calls itself. Generally, it knows how to solve a problem for one very simple case (or for several simple cases). For more complicated cases, it calls itself with slightly simplified parameters and combines the result with the original parameters to get the final result. In our case, the simple case is that the date is in the first week of the year. That implies that the week's Thursday is the first Thursday of the year. If that is the case, the function just returns 1. In all other cases, it calls itself with a date that is one week earlier than the input date and adds 1 to the result. This would translate into JavaScript code like this: 
+{% highlight javascript %}
+function getWeekNumberRec(date) {
+    "use strict";
+    let modifiedDate = createThursdayDate(date);
+    let year = modifiedDate.getFullYear();
+    modifiedDate.setDate(modifiedDate.getDate() - 7);
+    if (modifiedDate.getFullYear() < year) return 1;
+    else return getWeekNumberRec(modifiedDate) + 1;
+}{% endhighlight %}
+    <p>One nice thing about this recursive version of the function is that the code is shorter than in the iterative version. To me it's also easier to read, but that probably differs from person to person. </p><p>What's less nice is that this function is less efficient than the original one. In each call to <code>getWeekNumberRec</code>, a new Date object is created and adapted to be on Thursday. The original function does this only once, but the new one does it for every week. <br>We can remedy this by creating the Thursday date before calling the recursive function. Then, we pass it as a parameter to the recursive function. </p><p>Another problem is a more general issue with recursive functions: they crash if the recursion goes <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Too_much_recursion">too deep</a>. For each recursive call, the system has to keep in memory the state of the calling function. In our recursive function, this means the system remembers <code>modifiedDate</code> and <code>year</code> until the recursive call has ended and it has added 1 to the result. Only then, after doing the <code>return</code>, it frees up these variables. So each recursive call introduces a new set of variables that need to be remembered. For this particular function, that won't be much of an issue, because the recursion won't ever go deeper than 53 calls (because a year never has more than 53 weeks), but it still uses a lot more memory than the iterative function. <br>In the future, or now if you use Safari, this issue can be solved by applying <i>tail recursion</i>. </p><h3>A tail recursive function</h3>In <i>tail recursion</i>, the recursive call is the last thing that the function does. The recursive function above is not tail recursive, because it still has to add 1 after calling <code>getWeekNumberRec</code>. If it were tail recursive, it would be able to benefit from <i>tail call optimization</i>. Tail call optimization is a nice trick that the compiler/interpreter can do when it sees a call at the end of a function with nothing after it. If such a call is performed, then all variables and other state (often called the <i>stack</i>) of the calling function are no longer needed. They are cleared then and reused by the called function. For JavaScript, this technique is currently only implemented in Safari, but <a href="https://ecma-international.org/ecma-262/6.0/">EcmaScript 2015</a> specifies it, so it should come to other browsers as well. <p>If we rewrite our recursive function to be tail recursive, while also applying the optimization of only calling <code>createThursdayDate</code> once before entering the recursion, we will end up with something like this: </p>
+{% highlight javascript %}
+function getWeekNumberTailRec(date) {
+    "use strict";
+    let loop = function (date, acc, year) {
+        date.setDate(date.getDate() - 7);
+        if (date.getFullYear() < year) return acc;
+        return loop(date, acc + 1, year);
+    }
+    let modifiedDate = createThursdayDate(date);
+    let year = modifiedDate.getFullYear();
+    return loop(modifiedDate, 1, year);
+}{% endhighlight %}
+        The function <code class="prettyprint">getWeekNumberTailRec</code> itself isn't actually recursive, but it calls an internal function <code class="prettyprint">loop</code> which is tail recursive. To avoid having to add 1 after the recursive call, we pass the intermediate result as parameter <code class="prettyprint">acc</code>. All of this does make things more complicated, so now the code is not shorter anymore than the original iterative function. I guess it's a matter of taste which one you prefer.

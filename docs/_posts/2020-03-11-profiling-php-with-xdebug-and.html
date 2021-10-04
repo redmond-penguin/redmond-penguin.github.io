@@ -1,0 +1,34 @@
+---
+layout: post
+title: Profiling PHP with XDebug and KCacheGrind
+date: '2020-03-11T13:26:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- Programming
+- Development tools
+- PHP
+modified_time: '2020-03-12T09:39:00.879+01:00'
+image:
+    path: /images/kcachegrind.png
+permalink: /2020/03/profiling-php-with-xdebug-and.html
+---
+
+Does it take too long for your PHP page to load in the browser? Have you been staring at the code for ages and tried many fixes that didn't help much? Still no idea where the performance bottleneck is? Could it be somewhere in that bloated framework that you use? Or in some new class that your co-worker made last week? Or, heaven forbid, somewhere in your own code? To find out, a profiler will be of tremendous help. In this post, I will show how to use <a href="https://xdebug.org/docs/profiler">XDebug's profiler</a> and  <a href="https://kcachegrind.github.io/html/Home.html">KCacheGrind</a> to help make your code faster.
+<!--end_excerpt-->
+<h3>Prerequisites</h3>I assume you have Apache and PHP already installed on a Linux machine. I will also assume you use a RedHat type of distribution (RHEL, CentOS, Fedora), but that's just because I happen to use such a distribution (<a href="https://www.centos.org/">CentOS</a> 7 to be precise). With small modifications, the following will probably also work in other distributions. <br />Maybe you already have <a href="https://xdebug.org/">XDebug</a>, because it's also a great debugging tool that works very will with many IDEs and with <a href="https://code.visualstudio.com/">Visual Studio Code</a>. If you don't have it yet, install it: <br />
+{% highlight bash %}
+sudo yum install php-pecl-xdebug{% endhighlight %}
+To visualize the profiling results, we will use <a href="https://kcachegrind.github.io/html/Home.html">KCacheGrind</a>: <br />
+{% highlight bash %}
+sudo yum install kdesdk-kcachegrind{% endhighlight %}
+Another prerequisite is that you have <b>enough disk space</b>, because the profiling data written to the filesystem by XDebug can get quite big. <br /><h3>Configuring XDebug profiler</h3>XDebug is a PHP extension, so it is configured in the PHP config file <code>php.ini</code>, or in CentOS 7's case in the file <code>/etc/php.d/xdebug.ini</code>. Edit this file: <br />
+{% highlight bash %}sudo vi /etc/php.d/xdebug.ini{% endhighlight %}
+Add the following line to enable profiling:
+{% highlight ini %}xdebug.profiler_enable = 1{% endhighlight %}
+Make sure to <b>remove or comment that line when you're done</b> because it will slow things down and write a lot of data to disk. <br />To tell XDebug where in the file system it should write its profiling data (e.g. <code>/tmp/</code>), add the following configuration:
+{% highlight ini %}xdebug.profiler_output_dir = /tmp/{% endhighlight %}
+Check that Apache has write permissions for that directory. Now restart Apache to let it use the new settings:
+{% highlight bash %}sudo service httpd restart{% endhighlight %}
+<h3>Running a profiling session</h3>Now open the slow page in your browser. After it finished loading, check the files in the profiler output directory (/tmp in the example) that start with <code>cachegrind.out</code>. These contain the profiling data for the various Apache processes. The numbers at the end indicate the Apache process ids. <br /><h3>Analyzing the profiling data</h3>You need to find the cachegrind.out file that corresponds to the Apache (httpd) process that served the page you just opened in your browser. Maybe you know the relevant Apache process id. If so, the file you're looking for is cachegrind.out.&lt;id&gt;. If you're not sure which Apache process served your page, just try the file with the biggest size, and if it turns out that it contains data completely unrelated to your session, try the others. <br />Open the file with KCacheGrind: 
+{% highlight bash %}kcachegrind /tmp/cachegrind.out.<id>{% endhighlight %}
+    In KCacheGrind, on the left, you will see a list of functions, ordered by execution time. So the top one takes most time. In the column <i>Self</i> you can see how much of that time is spent directly in that function. The rest of the time is spent in other functions that are called by the function. To see which functions are called and how much time they take, click on the function's row. More details will apear on the right. The tab <i>Callees</i> at the bottom shows the called functions. <br>A lot more information can be seen in KCacheGrind, so check out its excellent Help documentation. But with just the data discussed above, you can identify and fix many bottlenecks already. If you see that a function has a lot of <i>Self</i> time, have a look at the code in that function and see if anything can be optimized there. If a called function takes a lot of time, see if you can avoid calling that function, or call it less often. Or click on that function to get more details and see if you can optimize that one. <p>Good luck optimizing your PHP code. If it gets used a lot, you'll save many of us a lot of time.

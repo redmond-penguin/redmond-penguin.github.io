@@ -1,0 +1,16 @@
+---
+layout: post
+title: In Visual C# 2008 Express, Save doesn't always save your work
+date: '2009-12-17T10:15:00.002+01:00'
+author: A Penguin in Redmond
+tags:
+- Visual Studio
+- Development tools
+- C#
+modified_time: '2012-01-23T15:50:15.862+01:00'
+permalink: /2009/12/in-visual-c-2008-express-save-doesnt.html
+---
+
+The most important thing I learned in all these years using computers is to save my work often. Very often. Hardware and software, no matter on which OS, have a tendency to stop working just when you're in the middle of editing some large and important document. That's why I always save after almost every sentence. (The Blogger editor saves automatically and often too, I noticed, which I appreciate a lot.)<br /><br />In Visual C# Express however, often saving turns out to be not always enough. I created a new project, added some files to it, assuming they would be saved in the normal project location (My documents\Visual Studio 2008\Projects). I fooled around a bit with the project, ran it a few times, added more files, fooled around some more, edited my files, clicked Save File a lot, ran my application a few times, debugged it, and this went on for the whole afternoon. Then I tried to resize a panel in a form and something went wrong: Visual C# Express crashed. No problem, I thought, I've saved all my work until that last fatal change. So I relaunched Visual C# Express, clicked "Open project" and then, to my dismay, I could not see my project!
+<!--end_excerpt-->
+<br />I launched Windows Explorer, searched around, but could not find my recently created C# files. Also tried the <a href="http://a-penguin-in-redmond.blogspot.com/2009/12/things-i-miss-most-about-linux-part-i.html">find</a>&nbsp;command, but no use. It seemed all my files from the new project were gone. <br /><br />I searched the web for people who had a similar experience and then found&nbsp;<a href="http://erik.eae.net/archives/2005/06/04/00.16.38/#comment-4996">this post</a>. It mentioned that I could maybe find my files in some temporary folder, but that turned out to be not the case. The post explains that this is sort of a feature of Visual C# Express (the post refers to Visual C# Express 2005, but the feature was apparently succesful enough to keep it in the 2008 version): &nbsp;the project and its files aren't actually saved in My Documents until you explicitly do Save Project. Until then, Save File doesn't really <i>save</i> your files in the truest sense of the word, it merely stores them temporarily.<br /><br />This "impact-less projects" feature is the most curious one I've ever seen in any product. Luckily it can be switched off somewhere in the settings, but I only discovered that after losing an afternoon of work.

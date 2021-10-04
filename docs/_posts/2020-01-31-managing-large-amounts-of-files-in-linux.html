@@ -1,0 +1,15 @@
+---
+layout: post
+title: Managing large amounts of files in Linux
+date: '2020-01-31T15:57:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- Bash
+- linux
+modified_time: '2020-03-12T09:57:35.365+01:00'
+permalink: /2020/01/managing-large-amounts-of-files-in-linux.html
+---
+
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script><p>Suppose you have a directory with millions of files in it. Performing commands on so many files in Linux is often challenging because of limits on the number of arguments that can be provided to commands.</p>
+<!--end_excerpt-->
+<h2>Filtering files based on filename</h2>Say you want to know how many of those files start with the character a. A simple way to see that would be this command:</p><pre class="prettyprint">ls a* | wc -l</pre>The intention of this command is to use <b>ls</b> to list all files starting with a and then use <b>wc -l</b> to count how many lines the ls command produced. However, on most Linux systems this fails with the message "<i>Argument list too long</i>". The wildcard expression a* is expanded to many arguments and the system can't handle it.</p><p>A nice alternative is to use <b>find</b>, which can handle the wildcard by itself without problems:</p><pre class="prettyprint">find -maxdepth 1 -type f -name "a*" | wc -l</pre><p>The option -maxdepth 1 tells it to only find files in the current directory, not in any subdirectories. The option -type f tells it to only return items that are files. Check the man page for <b>find</b> for more details about its many options.</p><p>A neat additional feature of <b>find</b> is that you can tell it to perform an operation on the files it finds, for example delete them:</p><pre class="prettyprint">find -maxdepth 1 -type f -name "a*" -exec rm -f {} \;</pre><h2>Filtering files based on contents</h2><p>Now suppose you want to find all files containing the word <i>penguin</i>. <b>Find</b> can't search inside the files, but <b>grep</b> can. However, the following would fail again:</p><pre class="prettyprint">grep -l "penguin" *</pre><p>No problem again if we combine it with <b>find</b>: <pre class="prettyprint">find -maxdepth 1 -type f -name "*" -exec grep -l "penguin" {} \;</pre><p>If we want to perform a command on the files in the output of that command, an additional command called <b>xargs</b> can help. It takes a list of files and performs a specified operation on them. To delete all these penguin-containing files, we could do:</p><pre class="prettyprint">find -maxdepth 1 -type f -name "*" -exec grep -l "penguin" {} \; | xargs rm -f</pre>

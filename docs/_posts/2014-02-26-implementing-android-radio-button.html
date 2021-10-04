@@ -1,0 +1,17 @@
+---
+layout: post
+title: Implementing an Android radio button dialog in QPython 3
+date: '2014-02-26T12:12:00.001+01:00'
+author: A Penguin in Redmond
+tags:
+- Programming
+- Python
+- Android
+modified_time: '2020-02-17T13:25:08.229+01:00'
+thumbnail: /images/Screenshot_2014-02-26-11-49-09.png
+permalink: /2014/02/implementing-android-radio-button.html
+---
+
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script><a href="http://www.qpython.com">QPython 3</a> is a neat app that allows you to run <a href="http://www.python.org">Python</a> 3 scripts on an Android device. All my scripts that I originally created on Linux worked without problems. They were all console scripts though, and I decided to Androidify them a bit. Instead of asking multiple choice questions and making the user type in the answers in the console, the scripts should show nice radio button dialogs: <p><div class="separator" style="clear: both; text-align: center;"><img border="0" src="/images/Screenshot_2014-02-26-11-49-09.png"></div>
+<!--end_excerpt-->
+<p>This was not as easy to accomplish as I had hoped. There's not a lot of documentation yet, it's scattered over various websites, and much of it targets Python 2.7. But eventually I got it to work, like this: <pre><code class="prettyprint"><br />import androidhelper<br /><br />def radioButtonDialog(droid, question, options):<br />    droid.dialogCreateAlert(question)<br />    droid.dialogSetSingleChoiceItems(options)<br />    droid.dialogSetPositiveButtonText("OK")<br />    droid.dialogSetNegativeButtonText("Cancel")<br />    droid.dialogShow()<br />    response = droid.dialogGetResponse().result<br />    if "which" in response:<br />        result = response["which"]<br />    if result == "negative":<br />        raise Exception("Aborted")<br />    selectedItems = droid.dialogGetSelectedItems().result<br />    droid.dialogDismiss()<br />    return selectedItems.pop()<br /><br />droid = androidhelper.Android()<br />options = ["I agree", "I'm not sure", "I don't agree"]<br />try:<br />    result = radioButtonDialog(droid, "The penguin is awesome.", options)<br />    message = "You chose: " + options[result]<br />except Exception:<br />    message = "Oh, you don't want to tell me. That's ok."<br />droid.makeToast(message)<br /></code></pre>

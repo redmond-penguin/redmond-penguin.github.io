@@ -1,0 +1,37 @@
+---
+layout: post
+title: Syntax highlighting for source code in Blogger Dynamic Views theme with Google
+  code prettifier
+date: '2020-02-19T10:46:00.001+01:00'
+author: A Penguin in Redmond
+tags:
+- JavaScript
+- Programming
+- Blogger
+modified_time: '2020-02-21T15:08:27.617+01:00'
+thumbnail: /images/blogger_settings.png
+permalink: /2020/02/syntax-highlighting-for-source-code-in.html
+---
+
+<p>I recently changed this blog's theme to a Dynamic Views theme. Its looks and behaviour are much more modern now. However, syntax highlightling for my source code snippets didn't work anymore. Apparently my <a href="{{ site.baseurl }}{% post_url 2014-01-22-syntax-highlighting-for-source-code-on %}">previous solution</a> with <a href="http://highlightjs.org/">highlight.js</a> doesn't work well with Dynamic Views. (For the "classic" themes it still works, though.)   
+<p>I tried modifying the theme's HTML and inserted the required tags in the header section, but I just couldn't get it to work. Maybe it has to do with the fact that posts are now loaded after the main page has loaded. I tried inserting the tags at the start of a post, but that didn't seem to work either.  Searching for an alternative, I stumbled upon Google's <a href="https://github.com/google/code-prettify">code prettifier</a>. It looked super easy to set up, so I gave it a try and it works well. Here's how to make it work:
+<!--end_excerpt-->  
+<ol>  <li>Edit the post where source code syntax highlighting should be applied.</li>  <li>In the post editor, click HTML to enable HTML source editing.</li>  <li>At the first line of the post, insert this: <br>
+{% highlight html %}
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>{% endhighlight %}
+</pre></li>  <li>Surround code snippets with <b>&lt;pre class="prettyprint"></b> and <b>&lt;/pre></b> (<b>code</b> instead of <b>pre</b> works too), like in this example for HTML code - notice the <b>&amp;lt;</b> instead of <b>&lt;</b> to prevent parsing issues: 
+{% highlight html %}
+<pre class="prettyprint">
+&lt;input type="Submit" value="Submit" />
+</pre>{% endhighlight %}
+to get this in the resulting post:
+{% highlight html %}
+<input type="Submit" value="Submit" />{% endhighlight %}
+<li>to get a horizontal scrollbar if the source code lines are too long to fit, edit the theme's CSS. In the left menu, click <b>Theme</b>, then click <b>Customize</b> under "Live on blog", then click <b>Advanced</b> and then <b>Add CSS</b>. Add the following CSS: <br>
+{% highlight css %}
+pre, code {
+  overflow-x: auto;
+}{% endhighlight %}
+<br>Click <b>Apply to blog</b> (top right) to save the CSS. </li></ol> <p>The main disadvantage compared to the old solution is that now I have to include that script tag at the start of every blog post (again, inserting it in the header of the template's HTML didn't work). I can make that easier by adding it to the post template so that it gets inserted automatically:  <div class="separator" style="clear: both; text-align: center;"><a href="/images/blogger_settings.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/images/blogger_settings.png" width="400" height="179" data-original-width="1170" data-original-height="523" /></a></div> <p>However, it still gets included in every post and as a consequence it's loaded several times. The browser is smart enough to notice that it has already loaded it, so it doesn't actually fetch it from the source website again, but the JavaScript code is still interpreted every time. So it works, but it's not an optimal solution. If you know a better one, please let me know.
+
+<p><b>Update 5 Feb 2021</b>: This blog is no longer on Blogger; it's on GitHub now and has been migrated to Jekyll, where syntax highlighting is a built-in feature.

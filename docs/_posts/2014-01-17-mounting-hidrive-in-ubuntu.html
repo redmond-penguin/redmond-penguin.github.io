@@ -1,0 +1,16 @@
+---
+layout: post
+title: Mounting a HiDrive in Ubuntu
+date: '2014-01-17T09:31:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- Ubuntu
+- linux
+- HiDrive
+modified_time: '2014-01-21T09:38:20.468+01:00'
+permalink: /2014/01/mounting-hidrive-in-ubuntu.html
+---
+
+Accessing a (free) Strato <a href="https://www.free-hidrive.com/">HiDrive</a> as a regular filesystem in Ubuntu is possible, though not completely trivial to set up. Here is what I had to do to get it running:
+<!--end_excerpt-->
+<ol><li>I chose the WebDAV protocol to access my HiDrive (another option would be sftp, but only if you have a paid account). For this, some packages needed to be installed: <pre><code><br />sudo apt-get install davfs2<br />sudo apt-get install ca-certificates<br /></code></pre></li><li>I wanted to mount and use the HiDrive as a normal Ubuntu user, not as root. For this, the davfs2 package needed some tuning. I performed the following command: <pre><code><br />sudo dpkg-reconfigure davfs2<br /></code></pre>and I answered "Yes" when it asked "Should unprivileged users be allowed to mount WebDAV resources?". </li><li>Also, I needed to add myself (my Ubuntu username being <b>penguin</b>) to the <b>davfs2</b> group: <pre><code><br />sudo usermod -a -G davfs2 penguin<br /></code></pre></li><li>I created the mountpoint and made sure it would be accessible for a regular Ubuntu user: <pre><code><br />sudo mkdir /hidrive<br />sudo chmod 777 /hidrive<br /></code></pre></li><li>To configure the mountpoint, I edited /etc/fstab: <pre><code><br />sudo vi /etc/fstab<br /></code></pre>and added the following entry: <pre><code><br />https://webdav.hidrive.strato.com/  /hidrive  davfs  user,noauto  0  0<br /></code></pre></li></ol>For most Ubuntu users, this would be enough and the HiDrive could be mounted by this command (notice the absence of "sudo"): <pre><code><br />mount /hidrive<br /></code></pre>However, this gave me an error that said: <pre>/sbin/mount.davfs: / is the home directory of user abc.<br />You can't mount into another users home directory<br /></pre>A web search showed that some people got a similar message, only for user "kernoops". This could then be solved by adding <b>kernoops</b> to the <b>ignore_home</b> entry in the file <b>/etc/davfs2/davfs2.conf</b>. "kernoops" seems to be present already in most Ubuntus, but this abc user was not. I think in my case there was some kind of user/group id conflict caused by the YP/NIS server where this abc user was defined. Anyway, adding also <b>abc</b> to that line solved my problem: <pre><code><br />sudo vi /etc/davfs2/davfs2.conf<br />ignore_home       kernoops,distccd,abc<br /></code></pre>

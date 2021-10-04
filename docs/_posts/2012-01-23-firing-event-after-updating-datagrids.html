@@ -1,0 +1,18 @@
+---
+layout: post
+title: Firing an event after updating a DataGrid's data store in Dojo
+date: '2012-01-23T12:28:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- JavaScript
+- Programming
+- HTML
+- Dojox.grid.DataGrid
+- Dojo
+modified_time: '2014-01-21T09:42:41.795+01:00'
+permalink: /2012/01/firing-event-after-updating-datagrids.html
+---
+
+Currently I find myself struggling with <a href="http://dojotoolkit.org/">Dojo</a>. It's rather sparsely documented and I regularly have to plow through the web to find out how to get something done. I might as well document some of my findings here, so other people (and myself because I might forget) can benefit from it.  <p>In this case the issue was that I had a Dojo <a href="http://dojotoolkit.org/api/1.6/dojox/grid/DataGrid">DataGrid</a>, and I wanted to do something after every (re)load of its datastore. For the example's sake, suppose I wanted to run the following JavaScript function:
+<!--end_excerpt-->
+<pre><code><br />function doThisAfterLoadingDataStore()<br />{<br />  alert('DataStore has been (re)loaded!');<br />}<br /></code></pre>Of course the data store's <b>fetch()</b> method has an <b>onComplete</b> event, but to fire that event, I would have to explicitly call <b>fetch()</b>. This would be a waste of bandwidth, because the data store's data has already been fetched since I declaratively specified the store in the DataGrid, which causes an automatic fetch (without a specifyable onComplete event). It would have been great if there were an event <b>onFetchComplete</b> for the DataGrid, but unfortunately in the version of Dojo that I'm using (1.6), this is not the case. It does have an event <b>_onFetchComplete</b>, but this is a private event, and can't be specified declaratively in HTML (which is what I wanted to do). Luckily it <i>can</i> be specified in JavaScript with the <b>dojo.connect</b> method, so I managed to do it in the following way: <ol><li>I declaratively specified a <b>postCreate</b> method for my datagrid: <pre><code><br />&lt;table ... dojoType="dojox.grid.DataGrid" ... postCreate="gridPostCreate">...&lt;/table><br /></code></pre></li><li>This <b>postCreate</b> method calls <b>dojo.connect</b> to specify the <b>_onFetchComplete</b> event (and also makes sure the base <b>postCreate</b> is called): <pre><code><br />function gridPostCreate()<br />{<br />  dojo.connect(this, "_onFetchComplete", doThisAfterLoadingDataStore );<br />  this.inherited("postCreate", arguments);<br />}<br /></code></pre></li></ol>This did the trick. Now let's hope the <b>_onFetchComplete</b> event will continue to work like this in future Dojo versions...

@@ -1,0 +1,21 @@
+---
+layout: post
+title: 'Revisiting my first programming language: Commodore 64 BASIC'
+date: '2020-02-07T14:47:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- Programming
+- BASIC
+modified_time: '2020-02-19T10:51:27.637+01:00'
+permalink: /2020/02/revisiting-my-first-programming.html
+---
+
+<p>In the mid-eighties, when I was about 10 years old, my parents bought our first home computer. I had just read some magazine that contained a program listing for the Commodore 64, and somehow I was very curious about it, so I'd urged them to buy a Commodore 64. Somehow they listened to me and they bought the machine. Soon, after playing some Pac-Man and Burning Rubber on it, I started entering the program code from the magazine. I had no idea what sort of code it was or what it meant, but I managed to enter all lines (the last 100 of which contained nothing but DATA lines with lots of numbers in them) correctly. I figured out how to save the program to tape and how to run it. I don't remember what the program actually did, but I was fascinated by it and decided to learn how to write my own programs on that machine.</p>
+<!--end_excerpt-->
+<p>The language used in that listing was called <a href="https://en.wikipedia.org/wiki/BASIC">BASIC</a> and I read all about it in the manual and some books from the library. I created programs with texts, sprites and sounds and, after we bought a disk drive, with relative file access. I don't remember exactly what these programs did, but looking at the BASIC documentation at&nbsp;<a href="https://www.c64-wiki.com/wiki/C64-Commands" target="_blank">C64-Wiki</a>, I do remember nearly all commands.</p>
+{% highlight vb %}
+10 REM AN EXAMPLE BASIC PROGRAM
+20 A$="HELLO"
+30 PRINT A$
+40 GOTO 30{% endhighlight %}
+<p>BASIC, and perhaps especially Commodore 64 BASIC, was a very simplistic language. It didn't have things like functions, while loops, records or lots of other stuff that we have in modern programming languages. Every line was numbered, so if you wanted to insert a line somewhere, you had to hope that you'd left enough numbers between the lines. For program flow, you had GOTO and GOSUB, which could be used to go to some line number (and then back again, in the case of GOSUB). It didn't have any debugging tools. It was strongly typed, I suppose, with support for integers, floats, strings and arrays. And then there were the infamous PEEK and POKE commands, to read and manipulate the machine's memory (often leading to crashes).</p><p>BASIC has often been criticized for being too simplistic and encouraging bad programming practices, but I actually think it was a great way of learning to program and understanding computers. With all these GOTOs, PEEKs and POKEs it was quite close to assembly language, and I think it gave me a good understanding of how computers and CPUs actually work. And of course, its simplicity made it a great introductory programming language for a 10-year-old like myself. Commodore 64 BASIC was developed by Microsoft (Bill Gates himself had even contributed to it) and many years later that company released&nbsp;<a href="https://smallbasic-publicwebsite.azurewebsites.net/" target="_blank">Small Basic</a>, an equally simple but more modern version of BASIC, designed to teach today's 10-year-olds how to code. I think I'll try it out with my son some day soon.</p>

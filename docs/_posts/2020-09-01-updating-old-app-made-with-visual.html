@@ -1,0 +1,34 @@
+---
+layout: post
+title: Updating an old app made with Visual Studio Tools for Apache Cordova
+date: '2020-09-01T10:07:00.001+02:00'
+author: A Penguin in Redmond
+tags:
+- JavaScript
+- Cordova
+- Visual Studio
+- Development tools
+- HTML
+- Visual Studio Code
+modified_time: '2020-09-01T10:13:53.388+02:00'
+permalink: /2020/09/updating-old-app-made-with-visual.html
+---
+
+Recently I had to generate new iOS and Android versions of an app that had been created in Visual Studio 2015 using the Visual Studio Tools for Apache Cordova. This wasn't... easy. In this post, I will summarize some of the challenges I encountered and the solutions I found.  
+<!--end_excerpt-->
+<p>The first problem I found was that newer versions of Visual Studio no longer support Visual Studio Tools for Apache Cordova, as detailed on <a href="https://docs.microsoft.com/en-us/visualstudio/porting/port-migrate-and-upgrade-visual-studio-projects?view=vs-2019">this page</a>. So I followed the advice on that page to migrate things to Visual Studio Code. This wasn't too hard, I just followed the instructions <a href="https://marketplace.visualstudio.com/items?itemName=msjsdiag.cordova-tools">here</a>. It does take a while to (re)install and/or update everything on Windows and Mac, though.    
+    <p>Next, there was the issue of updating to a newer version of Cordova. Luckily all the plugins that the app used were still supported, so I could remove the old versions of the plugins and install newer versions easily: 
+    {% highlight bash %}
+cordova plugin remove plugin_name
+cordova plugin add plugin_name{% endhighlight %} 
+    <p>This was pretty much all that was needed to generate a new Android version. Now, for the iOS, there were some additional issues. Apple <a href="https://developer.apple.com/news/?id=12232019b">wants</a> apps to migrate from UIWebView to WKWebView, and hence <a href="https://cordova.apache.org/announcements/2020/06/01/cordova-ios-release-6.0.0.html">newer</a> versions of cordova-ios have been migrated to WKWebView. This has several consequences: <ul>  <li>    WKWebView enforces use of <a href="https://developer.mozilla.org/nl/docs/Web/HTTP/CORS">CORS</a>. This required config changes to allow access to local files. The following needed to be added to config.xml:     
+    {% highlight xml %}
+<preference name="scheme" value="app" />
+<preference name="hostname" value="localhost" />{% endhighlight %} 
+</li>  <li>CORS even required some changes to the remote web service that the app used. Additional headers needed to be specified there (Access-Control-Allow-Origin and Access-Control-Allow-Headers in my case) to make sure XHR requests were performed.   </li>  <li>LocalStorage was in a different location due to the webview migration. This required installation of a plugin to migrate it: cordova-plugin-migrate-localstorage. However, this plugin can't be       installed with cordova-ios 6.x, because it requires the plugin cordova-plugin-wkwebview-engine which is obsolete and doesn't work anymore. Luckily <a href="https://github.com/apache/cordova-ios/issues/906">here</a> I found a solution where someone installed a <a href="https://github.com/jairemix/cordova-plugin-migrate-localstorage">fork</a> of this plugin which doesn't require cordova-plugin-wkwebview-engine. One does need to edit this plugin's file <b>migrateLocalStorage.m</b> and replace      
+{% highlight objective_c %}
+#define TARGET_LS_FILEPATH @"WebKit/WebsiteData/LocalStorage/http_localhost_8080.localstorage"{% endhighlight %} 
+with     
+{% highlight objective_c %}
+#define TARGET_LS_FILEPATH @"WebKit/WebsiteData/LocalStorage/app_localhost_0.localstorage"{% endhighlight %} 
+and then it kind of works.   </li></ul>Phew.

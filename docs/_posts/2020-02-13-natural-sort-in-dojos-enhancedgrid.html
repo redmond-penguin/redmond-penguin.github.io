@@ -1,0 +1,82 @@
+---
+layout: post
+title: Natural Sort in dojo's EnhancedGrid
+date: '2020-02-13T12:20:00.000+01:00'
+author: A Penguin in Redmond
+tags:
+- JavaScript
+- Programming
+- dojox.grid.EnhancedGrid
+- Dojo
+modified_time: '2020-02-19T10:50:50.282+01:00'
+permalink: /2020/02/natural-sort-in-dojos-enhancedgrid.html
+---
+
+"Hi, I would like to report a bug in the web app you built for us." <br />"Sure, what seems to be the problem?" <br />"The order in the tables is all wrong." <br />"Really? You can change the order of the items in the table by clicking on the column header that you wish to sort on." <br />"I know, and I did. But it sorts them wrong." <br />"OK, could you give me an example of what is ordered wrong?" <br />"Sure. I have three rooms, called Room 3, Room 50 and Room 225. If I click the room column's header, it should order them in that order: Room 3, Room 50 and then Room 225. Instead, I get Room 225, Room 3, Room 50." <br />"Oh, I see. Well, technically, that is the correct order. 2 before 3 before 5." <br />"But it's 225, not 2. And 50, not 5." <br />"Yes, but the sorting happens character by character. It checks the ASCII code of -" <br />"Axi what? Look, I'm not interested in the technicalities, could you just get it to work properly?" <br /> <h2>Natural Sort</h2><p>This kind of dialogue happens in a lot of software projects at some point. Confusion arises because the two participants are talking about two different ways of sorting. 
+<!--end_excerpt-->
+<p>The developer talks about the string sorting that is most common in programming languages which I will call ASCII sorting (image below). This sorting, as the developer tried to explain, compares the ASCII codes of the characters of two strings. As soon as it finds a difference, the string with the lowest ASCII code is decided to appear before the other one. So "13" appears before "2", because the ASCII code of first character "1" is lower than the ASCII code of "2". <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><img border="0" data-original-height="142" data-original-width="166" height="274" src="/images/normalsort.png" width="320" /></td></tr><tr><td class="tr-caption" style="text-align: center;">ASCII sort</td></tr></tbody></table><br>Another characteristic of ASCII sorting is an odd kind of case sensitivity. The ASCII codes of all lower case characters are higher than those of all upper case characters. This causes all words that start with a lower case character to appear after all words starting with upper case. So "room 1" would appear after all the other rooms with Rs, and even after any additional rooms with different capitals (e.g. after "Waiting room 100", even though R is clearly before W in the alphabet). <p>The customer wants numbers in the strings to be sorted numerically as much as possible (image below), and they want the strings to be alphabetically sorted, regardless of case. This calls for a far more intuitive way of sorting than the developer's one, and it's called <a href="https://en.wikipedia.org/wiki/Natural_sort_order">Natural Sort</a>. While it's more intuitive for the end user, it's also more complicated and less efficient from a technical point of view. This may explain why it's not the default sort in most programming languages. <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><img border="0" data-original-height="147" data-original-width="170" height="277" src="/images/naturalsort.png" width="320" /></td></tr><tr><td class="tr-caption" style="text-align: center;">Natural sort</td></tr></tbody></table><h2>Using Natural Sort in a dojox.grid.EnhancedGrid</h2>In dojo's EnhancedGrid, the sorting is, as the customer found out, ASCII based. There is no built-in option to change it to Natural Sort. Luckily there is a way to tweak the grid to use any sorting we want, so let's leverage that and help out the developer and the customer.<br />First we make a web page with the ASCII sorted version of the grid in the first image above. Create a file <b>index.html </b>with the following contents:<br />
+{% highlight html %}<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/claro.css">
+        <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojox/grid/enhanced/resources/claro/EnhancedGrid.css">
+        <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojox/grid/enhanced/resources/EnhancedGrid_rtl.css">
+        <style type="text/css">
+            /*Grid needs an explicit width/height by default*/
+            #grid {
+                width: 20em;
+                height: 20em;
+            }
+        </style>
+        <script>
+           var dojoConfig = { parseOnLoad: true };
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"></script>
+        <script type="text/javascript">
+            require([
+                "dojo/ready",
+                "dojox/grid/EnhancedGrid",
+                "dojo/data/ItemFileWriteStore"
+            ], function (ready, EnhancedGrid, ItemFileWriteStore) {
+                ready(function () {
+                    /*set up data store*/
+                    var data = {
+                        identifier: 'id',
+                        items: [
+                            { id: 1, col1: "Room 50" },
+                            { id: 2, col1: "Room 3" },
+                            { id: 3, col1: "Room 225" },
+                            { id: 4, col1: "room 1" },
+                            { id: 5, col1: "Waiting room 100" }
+                    ]};
+                    var store = new dojo.data.ItemFileWriteStore({data: data});
+                    /*set up layout*/
+                    var layout = [[
+                        {'name': 'Column 1', 'field': 'col1'}
+                    ]];
+                    /*create a new grid:*/
+                    var grid = new EnhancedGrid({
+                        id: 'grid',
+                        store: store,
+                        structure: layout,
+                        rowSelector: '20px'},
+                        document.createElement('div'));
+                    /*append the new grid to the div*/
+                    dojo.byId("gridDiv").appendChild(grid.domNode);
+                    /*Call startup() to render the grid*/
+                    grid.startup();
+                });
+            });
+        </script>
+    </head>
+    <body class="claro">
+        <div id="gridDiv"></div>
+    </body>
+</html>{% endhighlight %}
+<p>If you open this file in your browser, you will see an unsorted table. Clicking the column's header once will sort the column ascendingly like in the first image.</p><p>How do we change the sorting behaviour of the grid to natural sort? The sorting behaviour is actually not specified in the grid itself, but in its store. A store has an optional member comparatorMap, which, if present, is an object that maps the data members (<b>id</b> and <b>col1</b> in our case) to <i>comparator</i> functions. A comparator function decides for any pair of items which one should come first during sorting. If the first item should come first, it returns -1, if the second one should come first, it returns 1, and if it doesn't matter, it returns 0. Great, but how do we get such a comparator function? As I said, natural sort is a bit complicated, so I won't try to come up with my own function. Instead, we head over to StackOverflow, where we find great solutions like <a href="https://stackoverflow.com/a/4373421/395083">this one</a>. At that link, copy the function <b>natSort</b> from the code snippet in kennebec's answer into the <b>index.html</b> file right under 
+{% highlight javascript %}
+var store = new dojo.data.ItemFileWriteStore({data: data});{% endhighlight %}
+Then add the following line to put this function in the comparatorMap for member <b>col1</b>:
+{% highlight javascript %}
+store.comparatorMap = { "col1": natSort };{% endhighlight %}
+Now if you reload the page and click the header to sort the table, you will witness Natural Sort in action.
